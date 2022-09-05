@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:livraison_app/view/AdresseScreen.dart';
 import 'package:livraison_app/view/HomeScreen.dart';
 import 'package:livraison_app/view/LoginScreen.dart';
@@ -7,7 +8,9 @@ import 'package:livraison_app/view/OTPScreen.dart';
 import 'package:livraison_app/view/OrderConfirmer.dart';
 import 'package:livraison_app/view/WelcomeScreen.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
