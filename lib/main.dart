@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:livraison_app/Ui/OnBoardingScreen.dart';
 import 'package:livraison_app/view/AdresseScreen.dart';
 import 'package:livraison_app/view/HomeScreen.dart';
 import 'package:livraison_app/view/LoginScreen.dart';
@@ -7,6 +9,7 @@ import 'package:livraison_app/view/MesCommandes.dart';
 import 'package:livraison_app/view/OTPScreen.dart';
 import 'package:livraison_app/view/OrderConfirmer.dart';
 import 'package:livraison_app/view/WelcomeScreen.dart';
+import 'package:get/get.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,22 +22,30 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        scaffoldBackgroundColor: Colors.white,
-        primarySwatch: Colors.blue,
-      ),
-     // home:LoginScreen(),
-      routes: {
-        '/': (context) =>  LoginScreen(),
-        '/otp': (context) =>  OTPScreen(),
-        '/adresse':(context)=>AdresseScreen(),
-        '/welcome':(context)=>WelcomeScreen(),
-        '/orderconfirmer':(context)=>OrderConfirmerScreen(),
-        '/mescommandes':(context)=>MesCommandes(),
-        '/home':(context)=>Home(),
-      },
+    return ScreenUtilInit(
+        designSize: const Size(428 , 926),
+        builder: ( context, Widget? child) { return GetMaterialApp(
+
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          scaffoldBackgroundColor: Colors.white,
+          primarySwatch: Colors.blue,
+          primaryColor: const Color(0xffE6424B),
+          backgroundColor: Colors.white ,
+        ),
+       // home:LoginScreen(),
+        initialRoute: '/OnBoardingScreen',
+        routes: {
+          '/OnBoardingScreen':(context) =>  OnBoardingScreen(),
+          '/': (context) =>  LoginScreen(),
+          '/otp': (context) =>  OTPScreen(),
+          '/adresse':(context)=>AdresseScreen(),
+          '/welcome':(context)=>WelcomeScreen(),
+          '/orderconfirmer':(context)=>OrderConfirmerScreen(),
+          '/mescommandes':(context)=>MesCommandes(),
+          '/home':(context)=>Home(),
+        },
+      );}
     );
   }
 }

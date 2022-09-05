@@ -161,7 +161,7 @@ class LoginScreen extends StatelessWidget {
                     height: 50,
                     child: ElevatedButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, '/otp');
+                        Navigator.pushNamed(context, '/otp'); //// hna l push
                       },
                       child: Text(
                         'Continue',

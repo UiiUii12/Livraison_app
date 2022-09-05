@@ -2,10 +2,10 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:livraison_app/Controller/AppController.dart';
 import 'package:livraison_app/Themes/Theme.dart';
 import 'package:livraison_app/Ui/Dots.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:livraison_app/view/LoginScreen.dart';
 import 'OnBoardContent.dart';
 import 'SearchScreen.dart';
 
@@ -55,7 +55,8 @@ class OnBoardingScreen extends StatelessWidget {
                 style: ElevatedButton.styleFrom(primary: theme().primaryColor ),
                   onPressed: () {
 
-                 Get.to(() => SearchScreen()) ;
+                 //Get.to(() => SearchScreen()) ;
+                    Get.to(() => LoginScreen()) ;
                   ; },
                   child: AutoSizeText('Continue' , style: Theme.of(context).textTheme.headline6,)),
             ) ,
