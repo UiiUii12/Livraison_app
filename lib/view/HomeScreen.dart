@@ -180,22 +180,26 @@ class Home extends StatelessWidget {
                 itemCount: Categ.length,
                 itemBuilder:(context, index) {
                   final image=Categ[index];
-                  return Row(
-                    mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Spacer(flex: 13,),
-                        Expanded(
-                          flex:71,
-                          child: Container(
-                            height: 68,
-                          //  width: 71,
-                            child: CircleAvatar(
-                              backgroundImage: AssetImage('$image'),
+                  return Expanded(
+                    child: Expanded(
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Spacer(flex: 13,),
+                            Expanded(
+                              flex:71,
+                              child: Container(
+                                height: 68,
+                              //  width: 71,
+                                child: CircleAvatar(
+                                  backgroundImage: AssetImage('$image'),
+                                ),
+                              ),
                             ),
-                          ),
+                          ],
                         ),
-                      ],
-                    );
+                    ),
+                  );
                 }
             ),
           ),

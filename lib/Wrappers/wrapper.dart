@@ -1,10 +1,12 @@
 
 import 'package:flutter/cupertino.dart';
+import 'package:livraison_app/Ui/SearchScreen.dart';
 import 'package:provider/provider.dart';
 
 import '../Ui/OnBoardingScreen.dart';
+import '../auth/auth.dart';
 import '../auth/user.dart';
-import '../view/HomeScreen.dart';
+
 
 
 class Wrapper extends StatelessWidget {
@@ -13,11 +15,11 @@ class Wrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<MyUser?>(context);
-
+    AuthService().singeOut();
     if (user == null) {
       return OnBoardingScreen();
     } else {
-      return Home();
+      return SearchScreen();
     }
   }
 }

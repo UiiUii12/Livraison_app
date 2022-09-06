@@ -68,6 +68,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/
+    - lib/Asset/Images/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
@@ -83,6 +84,7 @@ flutter:
   - family: Golos
     fonts:
     - asset: fonts/Golos UI_Regular.ttf
+    - asset: lib/Asset/Font/Golos-Regular.woff
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro
