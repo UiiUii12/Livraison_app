@@ -184,23 +184,18 @@ class _OTPScreenState extends State<OTPScreen> {
                     height: 50,
                     child: ElevatedButton(
                       onPressed: () async {
-                        print('/////////////////////////////////////////////////////');
-                        print('/////////////////////////////////////////////////////');
-                        print('/////////////////////////////////////////////////////');
+
                         code=a+b+c+d+e+f;
-                        print('/////////////////////////////////////////////////////');
-                        print('/////////////////////////////////////////////////////');
-                        print(code);
                         try{
                           UserCredential result =await FirebaseAuth.instance.signInWithCredential(PhoneAuthProvider.credential(verificationId: _verificationCode, smsCode: code));
                      print('///////////////////////////////////////');
-                          print("tmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaam");
+                          print("login done");
                         //  AuthService().singeOut(); //hadiiiiiii lazam ftest
                         }catch(e){
-                          print("3333333333333333333333333333333");
+                          print("******************** erreur *********************");
                           print(e);
 
-                          Navigator.pushNamed(context, '/welcome');
+                          Navigator.pushNamed(context, '/');
 
                         }
 
