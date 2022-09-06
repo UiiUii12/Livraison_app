@@ -2,6 +2,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:livraison_app/view/OTPScreen.dart';
 
 
 class LoginScreen extends StatelessWidget {
@@ -139,7 +140,9 @@ class LoginScreen extends StatelessWidget {
                         textAlignVertical: TextAlignVertical.center,
                         controller: value,
                         onChanged: (value){
-                          if(value.length==9){FocusScope.of(context).unfocus();}
+                          if(value.length==9){
+
+                            FocusScope.of(context).unfocus();}
                         },
                       ),
                     ),
@@ -161,7 +164,10 @@ class LoginScreen extends StatelessWidget {
                     height: 50,
                     child: ElevatedButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, '/otp'); //// hna l push
+                        phoneNumber=value.text;
+                     //   Navigator.pushNamed(context, '/otp'); //// hna l push
+                            Navigator.pushReplacement(
+                            context, MaterialPageRoute(builder: (context) => OTPScreen(phone: phoneNumber,)));
                       },
                       child: Text(
                         'Continue',

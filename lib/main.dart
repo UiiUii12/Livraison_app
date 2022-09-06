@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String s;
     return ScreenUtilInit(
         designSize: const Size(428 , 926),
         builder: ( context, Widget? child) { return GetMaterialApp(
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/OnBoardingScreen':(context) =>  OnBoardingScreen(),
           '/': (context) =>  LoginScreen(),
-          '/otp': (context) =>  OTPScreen(),
+          //'/otp': (context) =>  OTPScreen(),
           '/adresse':(context)=>AdresseScreen(),
           '/welcome':(context)=>WelcomeScreen(),
           '/orderconfirmer':(context)=>OrderConfirmerScreen(),

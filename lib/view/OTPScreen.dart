@@ -1,18 +1,27 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:livraison_app/auth/auth.dart';
+import 'package:livraison_app/view/LoginScreen.dart';
 
 
 class OTPScreen extends StatefulWidget {
-  OTPScreen({Key? key}) : super(key: key);
+  final String phone;
+
+  OTPScreen({Key? key,required this.phone}) : super(key: key);
   @override
   State<OTPScreen> createState() => _OTPScreenState();
 }
+String _verificationCode="";
 class _OTPScreenState extends State<OTPScreen> {
+  String code="";
+  String a = "", b = "", c = "", d = "", e = "", f = "";
   @override
   void initState(){
     super.initState();
+    _signeInWithPhoneNumbre();
   }
   @override
   void dispose(){
@@ -31,7 +40,7 @@ class _OTPScreenState extends State<OTPScreen> {
             Row(
               children: [
                 Expanded(flex: 1, child: Container()),
-                Expanded(
+              const  Expanded(
                   flex: 24,
                   child: Align(
                     alignment: Alignment.topLeft,
@@ -58,8 +67,8 @@ class _OTPScreenState extends State<OTPScreen> {
                       text:TextSpan(
                         children: [
                           TextSpan(
-                           text: 'Vous recevrez un code de 6 chiffres sur votre\nnuméro de téléphone +213*******10, ',
-                            style: TextStyle(
+                           text: 'Vous recevrez un code de 6 chiffres sur votre\nnuméro de téléphone +213*******'+widget.phone[7]+widget.phone[8]+', ',
+                            style: const TextStyle(
                               color: Color(0xff807F7F),
                               fontSize: 17,
                               fontFamily: 'Golos',
@@ -69,7 +78,7 @@ class _OTPScreenState extends State<OTPScreen> {
                               text: 'Changer le numéro de téléphone ?',
                               recognizer: TapGestureRecognizer()..onTap = ()=>
                                 Navigator.pushReplacementNamed(context, '/home'),
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Color(0xffE6424B),
                                 fontSize: 17,
                                 fontFamily: 'Golos',
@@ -86,7 +95,7 @@ class _OTPScreenState extends State<OTPScreen> {
             Row(
               children: [
                 Expanded(flex: 1, child: Container()),
-                Expanded(
+               const Expanded(
                   flex: 24,
                   child: Align(
                     alignment: Alignment.topLeft,
@@ -112,7 +121,7 @@ class _OTPScreenState extends State<OTPScreen> {
                   flex: 57,
                   child:  _textFieldOTP(
                     first: true,
-                    last: false,
+                    last: false,nemero: 0
                   ),
                 ),
                 Expanded(flex: 11, child: Container()),
@@ -121,6 +130,7 @@ class _OTPScreenState extends State<OTPScreen> {
                   child:  _textFieldOTP(
                     first: false,
                     last: false,
+                      nemero: 1
                   ),
                 ),
                 Expanded(flex: 11, child: Container()),
@@ -128,7 +138,7 @@ class _OTPScreenState extends State<OTPScreen> {
                   flex: 57,
                   child:  _textFieldOTP(
                     first: false,
-                    last: false,
+                    last: false,nemero: 2
                   ),
                 ),
                 Expanded(flex: 11, child: Container()),
@@ -137,6 +147,7 @@ class _OTPScreenState extends State<OTPScreen> {
                   child:  _textFieldOTP(
                     first: false,
                     last: false,
+                      nemero: 3
                   ),
                 ),
                 Expanded(flex: 11, child: Container()),
@@ -145,6 +156,7 @@ class _OTPScreenState extends State<OTPScreen> {
                   child:  _textFieldOTP(
                     first: false,
                     last: false,
+                      nemero: 4
                   ),
                 ),
                 Expanded(flex: 11, child: Container()),
@@ -153,6 +165,7 @@ class _OTPScreenState extends State<OTPScreen> {
                   child:   _textFieldOTP(
                       first: false,
                       last: true,
+                      nemero: 5
                ),
                 ),
                 Expanded(flex: 14, child: Container()),
@@ -170,8 +183,27 @@ class _OTPScreenState extends State<OTPScreen> {
                   child: Container(
                     height: 50,
                     child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/welcome');
+                      onPressed: () async {
+                        print('/////////////////////////////////////////////////////');
+                        print('/////////////////////////////////////////////////////');
+                        print('/////////////////////////////////////////////////////');
+                        code=a+b+c+d+e+f;
+                        print('/////////////////////////////////////////////////////');
+                        print('/////////////////////////////////////////////////////');
+                        print(code);
+                        try{
+                          UserCredential result =await FirebaseAuth.instance.signInWithCredential(PhoneAuthProvider.credential(verificationId: _verificationCode, smsCode: code));
+                     print('///////////////////////////////////////');
+                          print("tmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaam");
+                        //  AuthService().singeOut(); //hadiiiiiii lazam ftest
+                        }catch(e){
+                          print("3333333333333333333333333333333");
+                          print(e);
+
+                          Navigator.pushNamed(context, '/welcome');
+
+                        }
+
                       },
                       child: Text(
                         'Continue',
@@ -199,7 +231,7 @@ class _OTPScreenState extends State<OTPScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                AutoSizeText(
+               const AutoSizeText(
                   'Vous avez un problème  ?',
                   style: TextStyle(
                     fontSize: 17,
@@ -226,7 +258,7 @@ class _OTPScreenState extends State<OTPScreen> {
       ),
     );
   }
-  Widget _textFieldOTP({required bool first,required bool last}) {
+  Widget _textFieldOTP({required bool first,required bool last,required int nemero}) {
     return Container(
       height: 48,
       decoration: BoxDecoration(
@@ -252,12 +284,44 @@ class _OTPScreenState extends State<OTPScreen> {
           fontFamily: 'Golos',
         ),
         onChanged: (value){
+          if (nemero==0){a=value;}else if (nemero==1){b=value;}else if(nemero==2){c=value;}else if(nemero==3){d=value;}else if(nemero==4){e=value;}else if(nemero==5){f=value;}
           if((value.length==1)&&(last==false)){ FocusScope.of(context).nextFocus();}
           else if ((value.length==0)&&(first==false)){FocusScope.of(context).previousFocus();}
           else if((value.length==1)&&(last==true)){FocusScope.of(context).unfocus();}
         },
       ),
     );
+  }
+  Future _signeInWithPhoneNumbre() async {
+    try {
+      await FirebaseAuth.instance.verifyPhoneNumber(
+          phoneNumber: "+213${widget.phone}",
+          verificationCompleted: (PhoneAuthCredential credential) async {
+            await FirebaseAuth.instance
+                .signInWithCredential(credential)
+                .then((value) async {
+                  if (value.user!=null){print('loggin');};
+            });
+
+          },
+          verificationFailed: (FirebaseException e) {
+
+
+            print(e.message);
+
+          },
+          codeSent: (String verifictaionID, int? resendToken) {
+            setState(() {
+              _verificationCode = verifictaionID;
+            });
+          },
+          codeAutoRetrievalTimeout: (String verifictaionID) {
+            setState(() {
+              _verificationCode = verifictaionID;
+            });
+          },
+          timeout: Duration(seconds: 60));
+    } catch (e) {}
   }
 }
 
