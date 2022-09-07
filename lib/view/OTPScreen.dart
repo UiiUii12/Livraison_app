@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:livraison_app/Ui/SearchScreen.dart';
-import 'package:livraison_app/auth/auth.dart';
+
+import 'package:livraison_app/view/AdresseScreen.dart';
 import 'package:livraison_app/view/LoginScreen.dart';
 
 
@@ -193,7 +193,7 @@ class _OTPScreenState extends State<OTPScreen> {
                           UserCredential result =await FirebaseAuth.instance.signInWithCredential(PhoneAuthProvider.credential(verificationId: _verificationCode, smsCode: code));
                      print('///////////////////////////////////////');
                           print("login done");
-                          Get.offAll(SearchScreen());
+                          Get.offAll(AdresseScreen());
                         //  AuthService().singeOut(); //hadiiiiiii lazam ftest
                         }catch(e){
                           print("******************** erreur *********************");

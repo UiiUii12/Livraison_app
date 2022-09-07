@@ -72,7 +72,8 @@ dependencies {
 }
 apply plugin:'com.google.gms.google-services'
 android {
-     defaultConfig {
-           minSdkVersion 19
+    compileSdkVersion 32
+    defaultConfig {
+           minSdkVersion 20
          }
    }

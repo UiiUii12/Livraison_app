@@ -15,7 +15,7 @@ class Wrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<MyUser?>(context);
-    AuthService().singeOut();
+    //AuthService().singeOut();
     if (user == null) {
       return OnBoardingScreen();
     } else {
