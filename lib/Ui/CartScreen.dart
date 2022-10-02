@@ -63,7 +63,7 @@ class CartScreen extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Dismissible(
-                                    key: Key(cart[index].name),
+                                    key: Key(cart[index].nom),
                                     onDismissed: (direction){
                                       controller.Delete(cart, cart[index] , cout_total) ;
                                       controller.Remove_from_cart(cart, cart[index]) ;
@@ -92,7 +92,7 @@ class CartScreen extends StatelessWidget {
                                               mainAxisAlignment: MainAxisAlignment.center,
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
-                                                AutoSizeText('${cart[index].name} ${cart[index].prix} DA',
+                                                AutoSizeText('${cart[index].nom} ${cart[index].prix} DA',
                                                   textAlign: TextAlign.start,
                                                   style:  TextStyle(
                                                     color: Colors.black,
@@ -100,7 +100,7 @@ class CartScreen extends StatelessWidget {
                                                     fontFamily: 'Golos',
                                                   ),
                                                 ),
-                                                AutoSizeText('${cart[index].description}' ,
+                                                AutoSizeText('${cart[index].descreption}' ,
                                                   textAlign: TextAlign.start,
                                                   style:TextStyle(
                                                     color: Color(0xff9D9D9D),

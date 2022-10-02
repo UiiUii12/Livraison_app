@@ -9,6 +9,8 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:livraison_app/view/AdresseScreen.dart';
 import 'package:livraison_app/view/LoginScreen.dart';
 
+import '../bdd/clientinfo.dart';
+
 
 class OTPScreen extends StatefulWidget {
   final String phone;
@@ -193,6 +195,7 @@ class _OTPScreenState extends State<OTPScreen> {
                           UserCredential result =await FirebaseAuth.instance.signInWithCredential(PhoneAuthProvider.credential(verificationId: _verificationCode, smsCode: code));
                      print('///////////////////////////////////////');
                           print("login done");
+                          DatabaseService(uid: result.user!.uid).updatUserdata();
                           Get.offAll(AdresseScreen());
                         //  AuthService().singeOut(); //hadiiiiiii lazam ftest
                         }catch(e){

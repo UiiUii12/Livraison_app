@@ -12,12 +12,12 @@ class TabBarController extends GetxController with GetTickerProviderStateMixin {
 
 
 
-  List<Widget> tabs (List <Category> cat) {
+  List<Widget> tabs (List <String> cat) {
     List<Widget> tb = [] ;
-    for (Category category in cat) (
+    for (String category in cat) (
      tb.add(
          AutoSizeText(
-       category.nom_cat ,
+       category ,
        textAlign: TextAlign.start,
        )
 

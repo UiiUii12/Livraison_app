@@ -1,11 +1,14 @@
 import 'dart:async';
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:get/get.dart';
+import 'package:provider/provider.dart';
+import '../Ui/SearchScreen.dart';
+import '../auth/user.dart';
+import '../bdd/clientinfo.dart';
 
 
 
@@ -22,28 +25,38 @@ class _AdresseScreenState extends State<AdresseScreen> {
   bool haspermission = false;
   late LocationPermission permission;
   late Position position;
-
+  String s='Ajouter votre adresse';
 
   late StreamSubscription<Position> positionStream;
   checkGps() async {
+
     servicestatus = await Geolocator.isLocationServiceEnabled();
+    while(!servicestatus){servicestatus = await Geolocator.isLocationServiceEnabled();}
     if (servicestatus) {
       permission = await Geolocator.checkPermission();
 
       if (permission == LocationPermission.denied) {
-        while(permission==LocationPermission.denied){permission = await Geolocator.requestPermission();}
+        permission = await Geolocator.requestPermission();
+        if (permission == LocationPermission.denied) {
 
-
+          print('Location permissions are denied');
+          while(permission == LocationPermission.denied || permission == LocationPermission.deniedForever ){permission = await Geolocator.requestPermission(); }
+        } else if (permission == LocationPermission.deniedForever) {
+          print("'Location permissions are permanently denied");
+          // while(permission == LocationPermission.denied || permission == LocationPermission.deniedForever ){permission = await Geolocator.requestPermission(); }
+          permission = await Geolocator.requestPermission();
+        } else {
           haspermission = true;
-
+        }
       } else {
         haspermission = true;
       }
 
       if (haspermission) {
-        setState(() {
+        if(mounted){ setState(() {
           //refresh the UI
-        });
+        });}
+
 
         getLocation();
       }
@@ -64,8 +77,11 @@ class _AdresseScreenState extends State<AdresseScreen> {
 
     long = position.longitude;
     lat = position.latitude;
-    print('////////////////////');
-    print(long);
+
+    final user = Provider.of<MyUser?>(context,listen: false);
+    print(user!.uid);
+    await DatabaseService(uid:user.uid).latitude(lat);
+    await DatabaseService(uid:user.uid).longitude(long);
 
     setState(() {
       //refresh UI
@@ -119,10 +135,13 @@ class _AdresseScreenState extends State<AdresseScreen> {
 
 
     });
+
   }
   @override
   void initState() {
+
     super.initState();
+
      checkGps();
   }
   @override
@@ -151,7 +170,7 @@ class _AdresseScreenState extends State<AdresseScreen> {
                   child: Align(
                     alignment: Alignment.topLeft,
                     child: AutoSizeText(
-                      'Ajouter votre adresse',
+                      s,
                       maxLines: 2,
                       style: TextStyle(fontSize: 28, fontFamily: 'Golos'
                       ),
@@ -269,7 +288,7 @@ class _AdresseScreenState extends State<AdresseScreen> {
                     height: 50,
                     child: ElevatedButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, '/orderconfirmer');
+                        Get.offAll(SearchScreen());
 
                       },
                       child: Text(

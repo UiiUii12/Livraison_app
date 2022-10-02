@@ -5,6 +5,7 @@ import 'package:livraison_app/Ui/OnBoardingScreen.dart';
 import 'package:livraison_app/Wrappers/wrapper.dart';
 import 'package:livraison_app/auth/auth.dart';
 import 'package:livraison_app/auth/user.dart';
+import 'package:livraison_app/bdd/restauinfo.dart';
 import 'package:livraison_app/view/AdresseScreen.dart';
 import 'package:livraison_app/view/HomeScreen.dart';
 import 'package:livraison_app/view/LoginScreen.dart';
@@ -18,6 +19,7 @@ import 'package:get/get.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
   runApp(const MyApp());
 }
 
@@ -30,6 +32,7 @@ class MyApp extends StatelessWidget {
     return StreamProvider<MyUser?>.value(
     value: AuthService().user,
     initialData: null,
+
     catchError: (e, i) => null,
       child: ScreenUtilInit(
             designSize: const Size(428 , 926),

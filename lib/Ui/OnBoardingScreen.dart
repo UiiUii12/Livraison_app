@@ -7,7 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:livraison_app/view/LoginScreen.dart';
 import 'OnBoardContent.dart';
-import 'SearchScreen.dart';
+
 
 
 class OnBoardingScreen extends StatelessWidget {
@@ -25,7 +25,7 @@ class OnBoardingScreen extends StatelessWidget {
 
             Expanded(
               child: PageView.builder(
-                  physics: BouncingScrollPhysics(),
+                  physics: const BouncingScrollPhysics(),
                   onPageChanged: controller.onchange ,
                   controller: controller.controller,
                   itemCount: controller.pages.length,
@@ -53,11 +53,11 @@ class OnBoardingScreen extends StatelessWidget {
               decoration: BoxDecoration(borderRadius: BorderRadius.circular(9.r)),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(primary: theme().primaryColor ),
-                  onPressed: () {
+                  onPressed: () async {
 
                  //Get.to(() => SearchScreen()) ;
                     Get.to(() => LoginScreen()) ;
-                  ; },
+                   },
                   child: AutoSizeText('Continue' , style: Theme.of(context).textTheme.headline6,)),
             ) ,
             SizedBox(height: 84.h,) ,

@@ -9,12 +9,10 @@ import 'package:get/get.dart';
 
 
 class Food extends StatelessWidget {
-  final String image ;
-  final String name ;
-  final double prix ;
-  final String description ;
-  final List_of_food ;
-   Food( {Key? key,  required this.image,  required this.name, required this.prix,    this.List_of_food, required this.description,  }) : super(key: key);
+  final String id, resId,descreption,nom,categore;
+  final double prix;
+
+   Food( {Key? key,  required this.id,required this.nom,required this.resId,required this.descreption,required this.prix,required this.categore  }) : super(key: key);
   final ajouter = false.obs ;
   final counter = 1.obs ;
 
@@ -30,7 +28,7 @@ class Food extends StatelessWidget {
                 height: 161.h ,
                 width:281.w ,
                 decoration : BoxDecoration(
-                  image : DecorationImage(image: AssetImage(image) , fit: BoxFit.cover ) ,
+                  image : DecorationImage(image: AssetImage('lib/Asset/Images/Pizza.png') , fit: BoxFit.cover ) ,
                   borderRadius: BorderRadius.circular(9.r) ,
 
                 )
@@ -45,7 +43,7 @@ class Food extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        AutoSizeText(name ,
+                        AutoSizeText(nom ,
                           style:  TextStyle(
                             color:
                             Colors.black ,
@@ -71,7 +69,7 @@ class Food extends StatelessWidget {
 
 
                         ajouter.value = ! ajouter.value   ;
-                        controller.Continuer(ajouter.value, Food(image: image, name: name, prix: prix, description: description, ) , List_of_food.value) ;
+                      //  controller.Continuer(ajouter.value, Food( nom:nom, prix: prix, id: id,resId: resId, categore: categore,descreption: descreption, ) , List_of_food.value) ;
 
                         },
                         child: AutoSizeText(ajouter.value ? 'Annuler' : 'Ajouter' ,
