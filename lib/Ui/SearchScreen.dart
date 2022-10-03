@@ -5,9 +5,12 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:livraison_app/Ui/Restaurant.dart';
+import 'package:livraison_app/Ui/RestaurantScreen.dart';
 
 import '../bdd/classes.dart';
 import '../bdd/restauinfo.dart';
+import 'Food.dart';
 
 class SearchScreen extends StatelessWidget {
   SearchScreen({Key? key}) : super(key: key);
@@ -18,109 +21,125 @@ class SearchScreen extends StatelessWidget {
 
    AppController controller = Get.put(AppController()  , permanent:  true );
 
-   List <List> search = [ controller.restaurants , controller.plats];
+   List <List> search = [ controller.restaurants , controller.Pizza];
+   RestauService.List_of_food=[];
     return StreamBuilder<List<Restaurant>>(
         stream: RestauService().restaurantList,
       builder: (context, snapshot) {
         List<Restaurant> list = [];
-        print('/////////////////////');
-        print(snapshot.hasData);
+
         if (snapshot.hasData) {
           list = snapshot.data!;
 
         }
-        return SafeArea(
-          child: Scaffold(
-            resizeToAvoidBottomInset: false,
-             body: Row(
-               mainAxisAlignment: MainAxisAlignment.start,
-               crossAxisAlignment: CrossAxisAlignment.start,
-               children: [
-                 Spacer(flex: 1,) ,
-                 Expanded(
-                   flex: 29,
-                   child: Column(
-                             mainAxisAlignment: MainAxisAlignment.start,
-                             crossAxisAlignment: CrossAxisAlignment.start,
-                         children : [
-                               Spacer(flex: 2, ) ,
-                               AutoSizeText( """Salut,
+        controller.restaurants =list;
+
+
+        return StreamBuilder<List<Food>>(
+          stream: RestauService().foodlist(),
+          builder: (context, snapshot) {
+            List<Food> list2 = [];
+            print('/////////////////////2');
+            print(snapshot.hasData);
+            if (snapshot.hasData) {
+              list2 = snapshot.data!;
+
+            }
+            controller.Pizza=list2;
+            return SafeArea(
+              child: Scaffold(
+                resizeToAvoidBottomInset: false,
+                 body: Row(
+                   mainAxisAlignment: MainAxisAlignment.start,
+                   crossAxisAlignment: CrossAxisAlignment.start,
+                   children: [
+                     Spacer(flex: 1,) ,
+                     Expanded(
+                       flex: 29,
+                       child: Column(
+                                 mainAxisAlignment: MainAxisAlignment.start,
+                                 crossAxisAlignment: CrossAxisAlignment.start,
+                             children : [
+                                   Spacer(flex: 2, ) ,
+                                   AutoSizeText( """Salut,
 Bienvenue dans notre magasin ! """,
-                                 style: TextStyle(fontFamily: 'Golos' , fontSize: 15.sp , ),),
-                               Spacer(flex: 6,) ,
-                               Container(
-                                 height:56.h ,
-                                 width: 401.w ,
-                                 child:  TextField(
-                                        cursorColor: Colors.black,
-                                       decoration: InputDecoration(
-                                         prefixIcon: Icon(EvaIcons.search , color:Color(0xff9D9D9D)),
-                                         hintText: 'Trouvez votre restaurant, votre produit'  ,
-                                         contentPadding: EdgeInsets.symmetric(vertical: 15.h ,),
-                                             border: OutlineInputBorder(
-                                                 borderRadius: BorderRadius.circular(9.r)  ,
-                                                 borderSide: BorderSide.none) ,
-                                           filled: true ,
-                                           fillColor: Color(0xffE4E4E4),
+                                     style: TextStyle(fontFamily: 'Golos' , fontSize: 15.sp , ),),
+                                   Spacer(flex: 6,) ,
+                                   Container(
+                                     height:56.h ,
+                                     width: 401.w ,
+                                     child:  TextField(
+                                            cursorColor: Colors.black,
+                                           decoration: InputDecoration(
+                                             prefixIcon: Icon(EvaIcons.search , color:Color(0xff9D9D9D)),
+                                             hintText: 'Trouvez votre restaurant, votre produit'  ,
+                                             contentPadding: EdgeInsets.symmetric(vertical: 15.h ,),
+                                                 border: OutlineInputBorder(
+                                                     borderRadius: BorderRadius.circular(9.r)  ,
+                                                     borderSide: BorderSide.none) ,
+                                               filled: true ,
+                                               fillColor: Color(0xffE4E4E4),
 
-                                       ),
-
-                                     ),
-                               ),
-                               Spacer(flex: 4) ,
-                               Expanded(
-                                 flex: 90,
-                                 child: ListView(
-                                   children: [
-                                     ...List.generate(2, (index) => Column(
-                                       mainAxisAlignment: MainAxisAlignment.start,
-                                       crossAxisAlignment: CrossAxisAlignment.start,
-                                       children: [
-                                         AutoSizeText('Restaurant' , style:
-                                         TextStyle(fontFamily: 'Golos' , fontSize: 18.sp ,fontWeight: FontWeight.bold ), ) ,
-                                         SizedBox(height: 10.w,) ,
-                                         Container(
-                                           height: 300.h,
-                                           width: double.maxFinite,
-                                           child: ListView(
-                                             physics: BouncingScrollPhysics(),
-                                             scrollDirection: Axis.horizontal,
-                                             children: [
-
-                                               ...List.generate(search[index].length, (index2) => Row(
-                                                 mainAxisAlignment: MainAxisAlignment.start,
-                                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                                 children: [
-                                                   Container(
-                                                       height: 300.h,
-                                                       width: 281.w,
-                                                       child:
-                                                      search[index][index2]
-                                                      ),
-                                                   SizedBox(width: 10.w,) ,
-                                                 ],
-                                               ) ) ,
-                                             ],
                                            ),
+
                                          ),
-                                         SizedBox(height: 30.h,),
+                                   ),
+                                   Spacer(flex: 4) ,
+                                   Expanded(
+                                     flex: 90,
+                                     child: ListView(
+                                       children: [
+                                         ...List.generate(2, (index) => Column(
+                                           mainAxisAlignment: MainAxisAlignment.start,
+                                           crossAxisAlignment: CrossAxisAlignment.start,
+                                           children: [
+                                             AutoSizeText('Restaurant' , style:
+                                             TextStyle(fontFamily: 'Golos' , fontSize: 18.sp ,fontWeight: FontWeight.bold ), ) ,
+                                             SizedBox(height: 10.w,) ,
+                                             Container(
+                                               height: 300.h,
+                                               width: double.maxFinite,
+                                               child: ListView(
+                                                 physics: BouncingScrollPhysics(),
+                                                 scrollDirection: Axis.horizontal,
+                                                 children: [
+
+                                                   ...List.generate(search[index].length, (index2) => Row(
+                                                     mainAxisAlignment: MainAxisAlignment.start,
+                                                     crossAxisAlignment: CrossAxisAlignment.start,
+                                                     children: [
+                                                       Container(
+                                                           height: 300.h,
+                                                           width: 281.w,
+                                                           child:
+                                                          search[index][index2]
+                                                          ),
+                                                       SizedBox(width: 10.w,) ,
+                                                     ],
+                                                   ) ) ,
+                                                 ],
+                                               ),
+                                             ),
+                                             SizedBox(height: 30.h,),
+                                           ],
+                                         )
+                                         )
                                        ],
-                                     )
-                                     )
-                                   ],
-                                 ),
-                               ) ,
+                                     ),
+                                   ) ,
 
 
-                         ],
+                             ],
 
 
-                   ),
+                       ),
+                     ),
+                     Spacer(flex: 1,),
+                   ],
                  ),
-                 Spacer(flex: 1,),
-               ],
-             ),
-          ),
+              ),
+            );
+          }
         );
       }
     );

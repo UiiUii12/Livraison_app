@@ -1,10 +1,14 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:livraison_app/Ui/Restaurant.dart';
 
 import 'package:livraison_app/bdd/classes.dart';
 
+import '../Ui/Food.dart';
+
 class RestauService {
   static String plasImage = "", foodImage = "", name = "";
+  static List List_of_food =[];
   final CollectionReference restauCollection =
   FirebaseFirestore.instance.collection('Restaurant');
 
@@ -39,7 +43,10 @@ class RestauService {
           imageUrl: doc.get("ImageUrl").toString(),
           latitude: doc.get("Latitude").toDouble(),
           id: doc.get("ID").toString(),
-          phone: doc.get("phone").toString());
+          phone: doc.get("phone").toString(),
+          adress: doc.get("Adress").toString(),
+          ImageUrl: doc.get("ImageUrl").toString(),
+          state: doc.get("state"),);
     }).toList();
   }
 
@@ -65,9 +72,10 @@ class RestauService {
     return snapshot.docs.map((doc) {
 
       return Plat(
+
           id: doc.get("ID").toString(),
           nom: doc.get("nom").toString(),
-          resId: doc.get("ResID").toString(),
+          resId: doc.get("ResId").toString(),
           descreption: doc.get("description").toString(),
           prix: doc.get("prix").toInt(),
           categore: doc.get("categorie").toString());
@@ -118,5 +126,40 @@ class RestauService {
 
     return name;
   }
+  writeCommande() async {
 
+
+      await FirebaseFirestore.instance
+          .collection('Plats')
+          .add({
+        "nom":'' ,
+        "description":'' ,
+        "prix": 0,
+        "ID":' ',
+        "ResId": 'bgxt0iCCvObcRvpNVsXz',
+        "categorie":'Pizzas',
+
+
+      });
+
+  }
+  List<Food> _foodlist(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc) {
+
+      return Food(
+
+          id: doc.get("ID").toString(),
+          nom: doc.get("nom").toString(),
+          resId: doc.get("ResId").toString(),
+          descreption: doc.get("description").toString(),
+          prix: doc.get("prix").toDouble(),
+          categore: doc.get("categorie").toString());
+    }).toList();
+  }
+
+  Stream<List<Food>> foodlist() {
+    return FirebaseFirestore.instance.collection('Plats')
+        .snapshots()
+        .map((snapshot) => _foodlist(snapshot));
+  }
 }

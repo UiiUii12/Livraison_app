@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:livraison_app/bdd/restauinfo.dart';
 
 
 
@@ -15,10 +16,11 @@ class Food extends StatelessWidget {
    Food( {Key? key,  required this.id,required this.nom,required this.resId,required this.descreption,required this.prix,required this.categore  }) : super(key: key);
   final ajouter = false.obs ;
   final counter = 1.obs ;
-
+  List List_of_food =[];
   @override
   Widget build(BuildContext context) {
   TabBarController controller = Get.put(TabBarController() , permanent: true) ;
+  List_of_food =[];
     return
       Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -69,7 +71,7 @@ class Food extends StatelessWidget {
 
 
                         ajouter.value = ! ajouter.value   ;
-                      //  controller.Continuer(ajouter.value, Food( nom:nom, prix: prix, id: id,resId: resId, categore: categore,descreption: descreption, ) , List_of_food.value) ;
+                        controller.Continuer(ajouter.value, Food( nom:nom, prix: prix, id: id,resId: resId, categore: categore,descreption: descreption, ) , RestauService.List_of_food) ;
 
                         },
                         child: AutoSizeText(ajouter.value ? 'Annuler' : 'Ajouter' ,

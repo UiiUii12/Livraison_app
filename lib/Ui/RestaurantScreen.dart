@@ -24,7 +24,7 @@ class RestaurantScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TabBarController tab = Get.find() ;
-
+    RestauService.List_of_food=[];
     return
     StreamBuilder<List<String>>(
         stream: RestauService().tabcate(id),
@@ -229,6 +229,8 @@ class RestaurantScreen extends StatelessWidget {
                                                     List<Plat> v =[];
                                                     if (snapshot.hasData) {
                                                     v = snapshot.data!;}
+                                                    print('//////////////////////////////////////////////');
+                                                    print(snapshot.hasData);
                                                     return (
                                                     ListView(
                                                       physics: BouncingScrollPhysics(),
@@ -269,11 +271,11 @@ class RestaurantScreen extends StatelessWidget {
 
                                           builder: (controller){
                                             return  ElevatedButton(
-                                                style: ElevatedButton.styleFrom(primary: List_of_food.isNotEmpty  ? theme().primaryColor : Color(0xffB8B4B4)),
+                                                style: ElevatedButton.styleFrom(primary: RestauService.List_of_food.isNotEmpty  ? theme().primaryColor : Color(0xffB8B4B4)),
                                                 onPressed: () {
                                                   var somme =0.0.obs ;
                                                   List<Food> cart = [] ;
-                                                      controller.ListOfFood(List_of_food, cart, somme) ;
+                                                      controller.ListOfFood( RestauService.List_of_food, cart, somme) ;
 
                                                     Get.to(CartScreen(cart: cart, inisial_price: somme.value,)) ;
 

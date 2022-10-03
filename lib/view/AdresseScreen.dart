@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:livraison_app/bdd/restauinfo.dart';
 import 'package:provider/provider.dart';
 import '../Ui/SearchScreen.dart';
 import '../auth/user.dart';
@@ -152,6 +153,7 @@ class _AdresseScreenState extends State<AdresseScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(

@@ -13,8 +13,9 @@ class Restaurant extends StatelessWidget {
   final String nom ,imageUrl,id,phone;
   final String adress;
   final String ImageUrl;
+  final double longitude,latitude;
  final bool   state ;
- Restaurant({Key? key,required this.nom,required this.adress,required this.id,required this.phone, required this.state, required this.imageUrl, required this.ImageUrl}) : super(key: key);
+ Restaurant({Key? key,required this.nom,required this.adress,required this.id,required this.phone, required this.state, required this.imageUrl, required this.ImageUrl, required this.longitude, required this.latitude}) : super(key: key);
 
   List<String> tableau = [];
   @override
