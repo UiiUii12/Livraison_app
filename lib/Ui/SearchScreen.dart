@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:livraison_app/Controller/AppController.dart';
 
@@ -8,44 +10,34 @@ import 'package:get/get.dart';
 import 'package:livraison_app/Ui/Restaurant.dart';
 import 'package:livraison_app/Ui/RestaurantScreen.dart';
 
+import '../Controller/TabBarController.dart';
 import '../bdd/classes.dart';
 import '../bdd/restauinfo.dart';
 import 'Food.dart';
 
-class SearchScreen extends StatelessWidget {
-  SearchScreen({Key? key}) : super(key: key);
+class SearchScreen extends StatefulWidget {
+  final  List<Restaurant> list1;
+  final List<Food> list2;
+  SearchScreen({Key? key, required this.list1, required this.list2}) : super(key: key);
+  static List<Restaurant> lo=[];
 
+  @override
+  State<SearchScreen> createState() => _SearchScreenState();
+}
 
+class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
 
    AppController controller = Get.put(AppController()  , permanent:  true );
+   AppController controller1;
 
    List <List> search = [ controller.restaurants , controller.Pizza];
    RestauService.List_of_food=[];
-    return StreamBuilder<List<Restaurant>>(
-        stream: RestauService().restaurantList,
-      builder: (context, snapshot) {
-        List<Restaurant> list = [];
 
-        if (snapshot.hasData) {
-          list = snapshot.data!;
-
-        }
-        controller.restaurants =list;
-
-
-        return StreamBuilder<List<Food>>(
-          stream: RestauService().foodlist(),
-          builder: (context, snapshot) {
-            List<Food> list2 = [];
-            print('/////////////////////2');
-            print(snapshot.hasData);
-            if (snapshot.hasData) {
-              list2 = snapshot.data!;
-
-            }
-            controller.Pizza=list2;
+String text ='';
+     controller.restaurants=SearchScreen.lo;
+     controller.Pizza=this.widget.list2;
             return SafeArea(
               child: Scaffold(
                 resizeToAvoidBottomInset: false,
@@ -68,21 +60,48 @@ Bienvenue dans notre magasin ! """,
                                    Container(
                                      height:56.h ,
                                      width: 401.w ,
-                                     child:  TextField(
-                                            cursorColor: Colors.black,
-                                           decoration: InputDecoration(
-                                             prefixIcon: Icon(EvaIcons.search , color:Color(0xff9D9D9D)),
-                                             hintText: 'Trouvez votre restaurant, votre produit'  ,
-                                             contentPadding: EdgeInsets.symmetric(vertical: 15.h ,),
-                                                 border: OutlineInputBorder(
-                                                     borderRadius: BorderRadius.circular(9.r)  ,
-                                                     borderSide: BorderSide.none) ,
-                                               filled: true ,
-                                               fillColor: Color(0xffE4E4E4),
+                                     child:  GetBuilder<AppController>(
+                                       builder: ( controller2){
+                                         return TextField(
+                                              cursorColor: Colors.black,
+                                             decoration: InputDecoration(
+                                               prefixIcon: Icon(EvaIcons.search , color:Color(0xff9D9D9D)),
+                                               hintText: 'Trouvez votre restaurant, votre produit'  ,
+                                               contentPadding: EdgeInsets.symmetric(vertical: 15.h ,),
+                                                   border: OutlineInputBorder(
+                                                       borderRadius: BorderRadius.circular(9.r)  ,
+                                                       borderSide: BorderSide.none) ,
+                                                 filled: true ,
+                                                 fillColor: Color(0xffE4E4E4),
 
-                                           ),
+                                             ),
+                                              onChanged: (value){
+                                                text=value;
 
-                                         ),
+
+                                                controller.sug(this.widget.list1,text);
+
+                                            setState(() {
+                                              controller.restaurants=SearchScreen.lo;
+                                            });
+
+                                            print(this.widget.list1.length);
+
+                                                setState(() {
+                                                  controller.restaurants=SearchScreen.lo;
+                                                });
+
+
+                                              },
+                                              onTap: (){
+
+                                           controller.sug(controller.restaurants,text);
+                                           controller.restaurants=SearchScreen.lo;
+                                           print(this.widget.list1.length);
+                                              },
+                                           );
+                                       }
+                                     ),
                                    ),
                                    Spacer(flex: 4) ,
                                    Expanded(
@@ -139,9 +158,7 @@ Bienvenue dans notre magasin ! """,
                  ),
               ),
             );
-          }
-        );
+
       }
-    );
-  }
 }
+

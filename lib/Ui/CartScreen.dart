@@ -14,7 +14,7 @@ class CartScreen extends StatelessWidget {
  final double inisial_price;
   @override
   Widget build(BuildContext context) {
-    AppController controller = Get.put(AppController() , permanent: true) ;
+
     var cout_total = 0.0.obs ;
     cout_total.value =  inisial_price ;
     var item_index = 0.obs ;

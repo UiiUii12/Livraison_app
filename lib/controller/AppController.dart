@@ -2,6 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:livraison_app/Ui/SearchScreen.dart';
 import '../Ui/Food.dart';
 import '../Ui/OnBoarding_Pages.dart';
 import '../Ui/Restaurant.dart';
@@ -63,6 +64,26 @@ class AppController extends GetxController {
     cart.remove(food) ;
     update() ;
   }
+  void sug( List<Restaurant> list1,  String s) {
+    List<Restaurant> l = [];
+print('coooooooooooocooooooooooooooooooo');
+    print(list1.length);
+    for (var i in list1) {
+      print(s);
+      print(i.nom);
+      if (i.nom.contains(s)) {
+        print("done");
+        l.add(i);
+      }
+    }
+    list1=l;
+    print('hoooooolaaaaaaaaaaa');
+    print(list1.length);
+    SearchScreen.lo=list1;
+    update();
+  }
+  void j(){}
+
 
 
   @override

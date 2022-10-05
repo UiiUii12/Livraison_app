@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:livraison_app/bdd/restauinfo.dart';
 import 'package:provider/provider.dart';
 import '../Ui/SearchScreen.dart';
+import '../Wrappers/wrapper2.dart';
 import '../auth/user.dart';
 import '../bdd/clientinfo.dart';
 
@@ -290,7 +291,7 @@ class _AdresseScreenState extends State<AdresseScreen> {
                     height: 50,
                     child: ElevatedButton(
                       onPressed: () {
-                        Get.offAll(SearchScreen());
+                        Get.offAll(Wrapper2());
 
                       },
                       child: Text(

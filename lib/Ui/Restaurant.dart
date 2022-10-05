@@ -44,7 +44,7 @@ class Restaurant extends StatelessWidget {
                     height: 164.h ,
                     width:398.w ,
                     decoration : BoxDecoration(
-                      image : DecorationImage(image: AssetImage(imageUrl) , fit: BoxFit.cover ) ,
+                      image : DecorationImage(image: NetworkImage(imageUrl) , fit: BoxFit.cover ) ,
                       borderRadius: BorderRadius.circular(9.r) ,
 
                     )
