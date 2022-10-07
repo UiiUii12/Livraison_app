@@ -1,7 +1,6 @@
 import 'dart:core';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:livraison_app/Controller/TabBarController.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -10,10 +9,12 @@ import 'package:livraison_app/bdd/restauinfo.dart';
 
 
 class Food extends StatelessWidget {
+  final String message;
   final String id, resId,descreption,nom,categore;
   final double prix;
+  final int quentite ;
 
-   Food( {Key? key,  required this.id,required this.nom,required this.resId,required this.descreption,required this.prix,required this.categore  }) : super(key: key);
+   Food( {Key? key,  required this.id,required this.nom,required this.resId,required this.descreption,required this.prix,required this.categore, required this.message, required this.quentite  }) : super(key: key);
   final ajouter = false.obs ;
   final counter = 1.obs ;
   List List_of_food =[];
@@ -71,7 +72,7 @@ class Food extends StatelessWidget {
 
 
                         ajouter.value = ! ajouter.value   ;
-                        controller.Continuer(ajouter.value, Food( nom:nom, prix: prix, id: id,resId: resId, categore: categore,descreption: descreption, ) , RestauService.List_of_food) ;
+                        controller.Continuer(ajouter.value, Food( nom:nom, prix: prix, id: id,resId: resId, categore: categore,descreption: descreption, message: '', quentite: 0, ) , RestauService.List_of_food) ;
 
                         },
                         child: AutoSizeText(ajouter.value ? 'Annuler' : 'Ajouter' ,

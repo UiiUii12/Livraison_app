@@ -4,7 +4,6 @@ import 'package:livraison_app/Ui/SearchScreen.dart';
 import 'package:livraison_app/view/AdresseScreen.dart';
 import 'package:provider/provider.dart';
 import '../Ui/OnBoardingScreen.dart';
-import '../auth/auth.dart';
 import '../auth/user.dart';
 
 

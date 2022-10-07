@@ -1,13 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:geocoding/geocoding.dart';
+import 'package:get/get.dart';
+
 import 'package:livraison_app/bdd/classes.dart';
+import 'package:livraison_app/bdd/restauinfo.dart';
+
+import '../Ui/Food.dart';
 
 class DatabaseService {
   final String uid;
   static String? nom;
   static bool exist = false;
   static double? long, lat;
-  static List<Panier>? list;
+  static List<Food>? list;
   static int nbrPanier = 0,  nbPlat = 0;
 
   DatabaseService({required this.uid});
@@ -159,8 +163,17 @@ class DatabaseService {
         .doc(uid)
         .update({"quentite": nbPlat - 1});
   }
-
-  writeCommande(Location l) async {
+langlat()async{
+  await clientCollection
+      .doc(uid)
+      .get()
+      .then((value) => long = value.get("longitude"));
+  await clientCollection
+      .doc(uid)
+      .get()
+      .then((value) => lat = value.get("latitude"));
+}
+  writeCommande(String s) async {
     var dt = DateTime.now();
     String time;
     if (dt.hour < 10 && dt.minute < 10) {
@@ -172,11 +185,23 @@ class DatabaseService {
     } else {
       time = dt.hour.toString() + ":" + dt.minute.toString();
     }
-    ;
-    for (int i = 0; i < list!.length; i++) {
+
+
+
+    await clientCollection
+        .doc(uid)
+        .get()
+        .then((value) => long = value.get("longitude"));
+    await clientCollection
+        .doc(uid)
+        .get()
+        .then((value) => lat = value.get("latitude"));
+       list= RestauService.List_of_food;
+  print(list!.length);
+    for (int i = 0; i < RestauService.List_of_food.length; i++) {
       await FirebaseFirestore.instance
           .collection('Commandes')
-          .doc(uid + ":" + time.toString())
+          .doc(uid+":" + time.toString())
           .collection("commade")
           .add({
         "nom": list![i].nom,
@@ -185,11 +210,10 @@ class DatabaseService {
         "ID": list![i].id,
         "ResId": list![i].resId,
         "categorie": list![i].categore,
-        "quentite": list![i].quantite.toInt(),
-        "message": list![i].message,
         "UserID": uid,
-        "Latitude": l.latitude,
-        "Longitude": l.longitude
+        "Latitude": lat,
+        "message":s.toString(),
+        'quentite':list![i].counter.toInt(),
       });
     }
   }

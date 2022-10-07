@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:livraison_app/Controller/AppController.dart';
@@ -8,10 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:livraison_app/Ui/Restaurant.dart';
-import 'package:livraison_app/Ui/RestaurantScreen.dart';
-
-import '../Controller/TabBarController.dart';
-import '../bdd/classes.dart';
 import '../bdd/restauinfo.dart';
 import 'Food.dart';
 
@@ -20,6 +15,7 @@ class SearchScreen extends StatefulWidget {
   final List<Food> list2;
   SearchScreen({Key? key, required this.list1, required this.list2}) : super(key: key);
   static List<Restaurant> lo=[];
+  static  List<Food> li=[];
 
   @override
   State<SearchScreen> createState() => _SearchScreenState();
@@ -37,7 +33,8 @@ class _SearchScreenState extends State<SearchScreen> {
 
 String text ='';
      controller.restaurants=SearchScreen.lo;
-     controller.Pizza=this.widget.list2;
+     controller.Pizza=SearchScreen.li;
+
             return SafeArea(
               child: Scaffold(
                 resizeToAvoidBottomInset: false,
@@ -79,16 +76,18 @@ Bienvenue dans notre magasin ! """,
                                                 text=value;
 
 
-                                                controller.sug(this.widget.list1,text);
+                                                controller.sug(widget.list1,text);
+                                                controller.sug2(widget.list2, text);
 
                                             setState(() {
                                               controller.restaurants=SearchScreen.lo;
+                                              controller.Pizza=SearchScreen.li;
                                             });
 
-                                            print(this.widget.list1.length);
 
                                                 setState(() {
                                                   controller.restaurants=SearchScreen.lo;
+                                                  controller.Pizza=SearchScreen.li;
                                                 });
 
 
@@ -96,8 +95,9 @@ Bienvenue dans notre magasin ! """,
                                               onTap: (){
 
                                            controller.sug(controller.restaurants,text);
+                                           controller.sug2(this.widget.list2, text);
                                            controller.restaurants=SearchScreen.lo;
-                                           print(this.widget.list1.length);
+                                           controller.Pizza=SearchScreen.li;
                                               },
                                            );
                                        }

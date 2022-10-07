@@ -1,23 +1,31 @@
 import 'package:auto_size_text/auto_size_text.dart';
+
+import 'package:geocoding/geocoding.dart';
 import 'package:livraison_app/Controller/AppController.dart';
 import 'package:livraison_app/Ui/ConfirmationOrdersScreen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:livraison_app/bdd/clientinfo.dart';
+import 'package:provider/provider.dart';
 import '../Themes/Theme.dart';
+import '../auth/user.dart';
+import '../bdd/restauinfo.dart';
 import 'Food.dart';
 
 class CartScreen extends StatelessWidget {
    List<Food> cart ;
+   static String adress ='';
    CartScreen({Key? key, required this.cart, required this.inisial_price}) : super(key: key);
  final double inisial_price;
   @override
   Widget build(BuildContext context) {
-
+print('jooooooooooooooooooooooooooooo');
     var cout_total = 0.0.obs ;
     cout_total.value =  inisial_price ;
+    RestauService.List_of_food=cart;
     var item_index = 0.obs ;
+    final user = Provider.of<MyUser?>(context);
     return  SafeArea(
       child: Scaffold(
         body: Row(
@@ -261,7 +269,17 @@ class CartScreen extends StatelessWidget {
                                           decoration: BoxDecoration(borderRadius: BorderRadius.circular(9.r)),
                                           child: ElevatedButton(
                                               style: ElevatedButton.styleFrom(primary: theme().primaryColor ),
-                                              onPressed: () {
+                                              onPressed: () async{
+
+                                               await  DatabaseService(uid: user!.uid).langlat();
+
+
+
+                                                List<Placemark> placemarks = await placemarkFromCoordinates(DatabaseService.lat!, DatabaseService.long!);
+
+
+                                               var first = placemarks[0].locality??'';
+                                               adress=first;
 
                                                 Get.to(ConfirmationOrdersScreen()) ;
  },

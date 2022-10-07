@@ -66,20 +66,28 @@ class AppController extends GetxController {
   }
   void sug( List<Restaurant> list1,  String s) {
     List<Restaurant> l = [];
-print('coooooooooooocooooooooooooooooooo');
-    print(list1.length);
+
     for (var i in list1) {
-      print(s);
-      print(i.nom);
       if (i.nom.contains(s)) {
-        print("done");
         l.add(i);
       }
     }
     list1=l;
-    print('hoooooolaaaaaaaaaaa');
-    print(list1.length);
+
     SearchScreen.lo=list1;
+    update();
+  }
+  void sug2( List<Food> list1,  String s) {
+    List<Food> l = [];
+
+    for (var i in list1) {
+      if (i.nom.contains(s)) {
+        l.add(i);
+      }
+    }
+    list1=l;
+
+    SearchScreen.li=list1;
     update();
   }
   void j(){}

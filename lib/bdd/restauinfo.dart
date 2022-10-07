@@ -8,7 +8,7 @@ import '../Ui/Food.dart';
 
 class RestauService {
   static String plasImage = "", foodImage = "", name = "";
-  static List List_of_food =[];
+  static List<Food> List_of_food =[];
   final CollectionReference restauCollection =
   FirebaseFirestore.instance.collection('Restaurant');
 
@@ -147,13 +147,14 @@ class RestauService {
     return snapshot.docs.map((doc) {
 
       return Food(
-
+          message: '',
           id: doc.get("ID").toString(),
           nom: doc.get("nom").toString(),
           resId: doc.get("ResId").toString(),
           descreption: doc.get("description").toString(),
           prix: doc.get("prix").toDouble(),
-          categore: doc.get("categorie").toString());
+          categore: doc.get("categorie").toString(), quentite: 0,);
+
     }).toList();
   }
 

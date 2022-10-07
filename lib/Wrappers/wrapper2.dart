@@ -36,6 +36,7 @@ class Wrapper2 extends StatelessWidget {
             list2 = snapshot.data!;
 
           }
+          SearchScreen.li=list2;
           return SearchScreen(list1: list,list2: list2);
         }
       );

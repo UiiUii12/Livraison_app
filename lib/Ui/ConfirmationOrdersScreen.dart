@@ -1,18 +1,33 @@
+
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:livraison_app/Ui/CartScreen.dart';
+import 'package:livraison_app/Wrappers/wrapper2.dart';
+
+import 'package:provider/provider.dart';
 
 import '../Themes/Theme.dart';
+import '../auth/user.dart';
+import '../bdd/clientinfo.dart';
+
 
 class ConfirmationOrdersScreen extends StatelessWidget {
   const ConfirmationOrdersScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    String adresse = '6958+WP4, Sidi Bel Abbès 22000' ;
+    String adresse = CartScreen.adress ;
+    String text ='';
+    final user = Provider.of<MyUser?>(context);
+
+
+
+
+
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -144,7 +159,9 @@ class ConfirmationOrdersScreen extends StatelessWidget {
                         fillColor: Color(0xffE4E4E4),
 
                       ),
-
+                          onChanged: (value){
+                         text=value;
+                          },
                     ),
                   ),
                   Spacer(flex: 2,) ,
@@ -154,7 +171,9 @@ class ConfirmationOrdersScreen extends StatelessWidget {
                     decoration: BoxDecoration(borderRadius: BorderRadius.circular(9.r)),
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(primary: theme().primaryColor ),
-                        onPressed: () {
+                        onPressed: ()async {
+                          await DatabaseService(uid: user!.uid).writeCommande(text);
+                          Get.offAll(Wrapper2());
                           },
                         child: AutoSizeText('Confirmer' ,
                           style: TextStyle(

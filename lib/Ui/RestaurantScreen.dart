@@ -21,6 +21,7 @@ class RestaurantScreen extends StatelessWidget {
    var  List_of_food =[].obs;
     List<Food> cart = [] ;
   List<String> tableau = [];
+  int i =0;
   @override
   Widget build(BuildContext context) {
     TabBarController tab = Get.find() ;
@@ -222,15 +223,15 @@ class RestaurantScreen extends StatelessWidget {
                                               controller:tab.tabController ,
                                               children:
                                               [
+
                                                 for(String cat in tableau)
+
                                                   StreamBuilder<List<Plat>>(
                                                       stream: RestauService().categoreList(id, cat),
                                                   builder: (context, snapshot) {
                                                     List<Plat> v =[];
                                                     if (snapshot.hasData) {
                                                     v = snapshot.data!;}
-                                                    print('//////////////////////////////////////////////');
-                                                    print(snapshot.hasData);
                                                     return (
                                                     ListView(
                                                       physics: BouncingScrollPhysics(),
@@ -244,7 +245,7 @@ class RestaurantScreen extends StatelessWidget {
                                                                     Container(
                                                                         height: 300.h,
                                                                         width: 281.w,
-                                                                        child: Food( nom: v[index].nom, prix: v[index].prix.toDouble(), descreption: v[index].descreption, resId: v[index].resId,id:v[index].id, categore: v[index].categore ,   )
+                                                                        child: Food( nom: v[index].nom, prix: v[index].prix.toDouble(), descreption: v[index].descreption, resId: v[index].resId,id:v[index].id, categore: v[index].categore, message: '', quentite: 0 ,   )
                                                                     ),
                                                                     SizedBox(width: 20.w,)
                                                                   ],
