@@ -1,29 +1,31 @@
+import 'dart:ui';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:livraison_app/controller/AppController.dart';
+import 'package:lottie/lottie.dart';
+
+import '../Widgets/customDialog.dart';
 
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
-  late String phoneNumber;
-
-  @override
-  static TextEditingController value = new TextEditingController();
   Widget build(BuildContext context) {
+    AppController controller=Get.put(permanent: true , AppController()) ;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
         color: Colors.white,
         child: Column(
           children: [
-            Expanded(
-              flex: 10,
-              child: Container(),
-            ),
+            Spacer(flex: 10,),
             Row(
               children: [
-                Expanded(flex: 1, child: Container()),
+                Spacer(flex: 1,),
                 Expanded(
                   flex: 24,
                   child: Align(
@@ -38,13 +40,10 @@ class LoginScreen extends StatelessWidget {
                 )
               ],
             ),
-            Expanded(
-              flex: 1,
-              child: Container(),
-            ),
+            Spacer(flex: 1,),
             Row(
               children: [
-                Expanded(flex: 1, child: Container()),
+                Spacer(flex: 1,),
                 Expanded(
                   flex: 24,
                   child: Align(
@@ -62,13 +61,10 @@ class LoginScreen extends StatelessWidget {
                 ),
               ],
             ),
-            Expanded(
-              flex: 3,
-              child: Container(),
-            ),
+            Spacer(flex: 3,),
             Row(
               children: [
-                Expanded(flex: 1, child: Container()),
+                Spacer(flex: 1,),
                 Expanded(
                   flex: 24,
                   child: Align(
@@ -84,13 +80,10 @@ class LoginScreen extends StatelessWidget {
                 ),
               ],
             ),
-            Expanded(
-              flex: 1,
-              child: Container(),
-            ),
+            Spacer(flex: 1,),
             Row(
               children: [
-                Expanded(flex: 1, child: Container()),
+                Spacer(flex: 1,),
                 Expanded(
                   flex: 24,
                   child: Container(
@@ -101,7 +94,6 @@ class LoginScreen extends StatelessWidget {
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: TextFormField(
-                        autofocus: false,
                         style: TextStyle(
                             height: 1.5,
                             fontFamily: 'Golos',
@@ -137,55 +129,64 @@ class LoginScreen extends StatelessWidget {
                         textInputAction: TextInputAction.done,
                         maxLength: 9,
                         textAlignVertical: TextAlignVertical.center,
-                        controller: value,
-                        onChanged: (value){
-                          if(value.length==9){FocusScope.of(context).unfocus();}
-                        },
+                        controller:controller.phoneNumber,
+                        onChanged: (phoneNumber){
+                          controller.onSubmitLogin();
+                         if(GetUtils.isLengthEqualTo(phoneNumber, 9)){
+                            FocusScope.of(context).unfocus();
+                        };}
                       ),
                     ),
                   ),
                 ),
-                Expanded(flex: 1, child: Container()),
+                Spacer(flex: 1,),
               ],
             ),
-            Expanded(
-              flex: 4,
-              child: Container(),
-            ),
+            Spacer(flex: 4,),
             Row(
               children: [
-                Expanded(flex: 1, child: Container()),
+                Spacer(flex: 1,),
                 Expanded(
                   flex: 24,
                   child: Container(
                     height: 50,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/otp');
-                      },
-                      child: Text(
-                        'Continue',
-                        style: TextStyle(
-                          fontFamily: 'Golos',
-                          fontSize: 22,
-                          color: Colors.white,
+                    child:
+                      GetBuilder(
+                        builder:(AppController controller)=> ElevatedButton(
+                          onPressed: GetUtils.isLengthEqualTo(controller.phoneNumber.text,9 ) ?(){
+                           /* showDialog(
+                              //barrierDismissible: false,
+                                context: context,
+                                builder: (BuildContext context){
+                                  return customDialog(
+                                    title: "S'il vous plaît, attendez",
+                                    ligne1:"vous recevrez un code pour vérifier" ,
+                                    ligne2: "votre identité",
+                                    asset:'assets/json/sending.json' ,
+                                  );});*/
+                           Navigator.pushNamed(context, '/otp');
+                          }:null,
+                          child: Text(
+                            'Continue',
+                            style: TextStyle(
+                              fontFamily: 'Golos',
+                              fontSize: 22,
+                              color: Colors.white,
+                            ),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                              primary: Color(0xffE6424B),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(9.0),
+                                 )),
                         ),
                       ),
-                      style: ElevatedButton.styleFrom(
-                          primary: Color(0xffE6424B),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(9.0),
-                              side: BorderSide(color: Colors.red))),
                     ),
                   ),
-                ),
-                Expanded(flex: 1, child: Container()),
+                Spacer(flex: 1,),
               ],
             ),
-            Expanded(
-              flex: 4,
-              child: Container(),
-            ),
+            Spacer(flex: 4,),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -197,7 +198,9 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
                 TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      controller.onInDirectCall();
+                    },
                     child: AutoSizeText(
                       'Contactez-nous',
                       style: TextStyle(
@@ -208,10 +211,11 @@ class LoginScreen extends StatelessWidget {
                     ))
               ],
             ),
-            Expanded(flex: 50, child: Container())
+            Spacer(flex: 50,),
           ],
         ),
       ),
     );
   }
+
 }

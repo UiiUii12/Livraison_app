@@ -33,11 +33,16 @@ dependencies:
   align_positioned: ^3.0.0
   eva_icons_flutter: ^3.1.0
   get: ^4.6.5
+  flutter_screenutil: ^5.5.4
+  awesome_dialog: ^3.0.2
+  sentry_flutter: ^6.2.2
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   flutter_svg: any
+  url_launcher: ^6.1.6
+  lottie: ^1.4.2
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -62,7 +67,8 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/
+    - assets/images/
+    - assets/json/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
@@ -77,7 +83,7 @@ flutter:
   fonts:
   - family: Golos
     fonts:
-    - asset: fonts/Golos UI_Regular.ttf
+    - asset: assets/fonts/Golos UI_Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

@@ -2,6 +2,10 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:livraison_app/controller/AppController.dart';
+
+import 'currentPage.dart';
 
 
 
@@ -10,19 +14,17 @@ class AdresseScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppController controller = Get.put(permanent: true, AppController());
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
         color: Colors.white,
         child: Column(
           children: [
-            Expanded(
-              flex: 10,
-              child: Container(),
-            ),
+            Spacer(flex: 10,),
             Row(
               children: [
-                Expanded(flex: 1, child: Container()),
+                Spacer(flex: 1,),
                 Expanded(
                   flex: 24,
                   child: Align(
@@ -37,13 +39,10 @@ class AdresseScreen extends StatelessWidget {
                 )
               ],
             ),
-            Expanded(
-              flex: 1,
-              child: Container(),
-            ),
+            Spacer(flex: 1,),
             Row(
               children: [
-                Expanded(flex: 1, child: Container()),
+                Spacer(flex: 1,),
                 Expanded(
                   flex: 24,
                   child: Align(
@@ -61,13 +60,10 @@ class AdresseScreen extends StatelessWidget {
                 ),
               ],
             ),
-            Expanded(
-              flex: 3,
-              child: Container(),
-            ),
+            Spacer(flex: 3,),
             Row(
               children: [
-                Expanded(flex: 1, child: Container()),
+                Spacer(flex: 1,),
                 Expanded(
                   flex: 24,
                   child: Align(
@@ -83,13 +79,10 @@ class AdresseScreen extends StatelessWidget {
                 ),
               ],
             ),
-            Expanded(
-              flex: 1,
-              child: Container(),
-            ),
+            Spacer(flex: 1,),
             Row(
               children: [
-                Expanded(flex: 1, child: Container()),
+                Spacer(flex: 1,),
                 Expanded(
                   flex: 24,
                   child: Container(
@@ -101,7 +94,6 @@ class AdresseScreen extends StatelessWidget {
                       alignment: Alignment.centerLeft,
                       child: TextFormField(
                         style: TextStyle(
-                            //height: 1.5,
                             fontFamily: 'Golos',
                             fontSize: 18),
                         cursorColor: Colors.grey,
@@ -126,52 +118,54 @@ class AdresseScreen extends StatelessWidget {
                         keyboardType: TextInputType.streetAddress,
                         textInputAction: TextInputAction.done,
                         textAlignVertical: TextAlignVertical.center,
+                        controller: controller.Adresse,
+                        onChanged: (value){
+                          controller.onSubmitAdresse();
+                        },
                       ),
                     ),
                   ),
                 ),
-                Expanded(flex: 1, child: Container()),
+                Spacer(flex: 1,),
               ],
             ),
-            Expanded(
-              flex: 4,
-              child: Container(),
-            ),
+            Spacer(flex: 4,),
             Row(
               children: [
-                Expanded(flex: 1, child: Container()),
+                Spacer(flex: 1,),
                 Expanded(
                   flex: 24,
                   child: Container(
                     height: 50,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/orderconfirmer');
-                      },
-                      child: Text(
-                        'Continue',
-                        style: TextStyle(
-                          fontFamily: 'Golos',
-                          fontSize: 22,
-                          color: Colors.white,
+                    child: GetBuilder(
+                      builder:(AppController controller)=> ElevatedButton(
+                        onPressed: controller.submitAdresse?() {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Main_Page()));
+                        }:null,
+                        child: Text(
+                          'Continue',
+                          style: TextStyle(
+                            fontFamily: 'Golos',
+                            fontSize: 22,
+                            color: Colors.white,
+                          ),
                         ),
+                        style: ElevatedButton.styleFrom(
+                            primary: Color(0xffE6424B),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(9.0),
+                               )),
                       ),
-                      style: ElevatedButton.styleFrom(
-                          primary: Color(0xffE6424B),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(9.0),
-                              side: BorderSide(color: Colors.red))),
                     ),
                   ),
                 ),
-                Expanded(flex: 1, child: Container()),
+                Spacer(flex: 1,),
               ],
             ),
-            Expanded(
-              flex: 4,
-              child: Container(),
-            ),
-            Expanded(flex: 50, child: Container())
+            Spacer(flex:54,),
           ],
         ),
       ),

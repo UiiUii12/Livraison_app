@@ -2,6 +2,8 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'currentPage.dart';
+
 class OrderConfirmerScreen extends StatelessWidget {
   OrderConfirmerScreen({Key? key}) : super(key: key);
 
@@ -90,8 +92,11 @@ class OrderConfirmerScreen extends StatelessWidget {
                     height: 50,
                     child: ElevatedButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, '/home');
-                      },
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Main_Page()));
+                        },
                       child: Text(
                         'Continue',
                         style: TextStyle(

@@ -18,73 +18,44 @@ class WelcomeScreen extends StatelessWidget {
             Expanded(flex: 308, child: Container(),),
                   Row(
                     children: [
-                      Expanded(flex: 5, child: Container()),
-                      Expanded(
-                        flex: 33,
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: AutoSizeText(
-                            'Vous êtes les bienvenus',
-                            style: TextStyle(
-                                fontSize: 28,
-                                fontFamily: 'Golos'
-                            ),
-                          ),
-
-                        ),
-                      ),
-                      Expanded( flex: 5, child: Container(),),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Expanded(flex: 5, child: Container()),
-                      Expanded(
-                        flex: 33,
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: AutoSizeText(
-                            'dans notre application',
-                            style: TextStyle(
-                                fontSize: 28,
-                                fontFamily: 'Golos'
-                            ),
+                      Spacer(flex: 5,),
+                      Align(
+                        alignment: Alignment.center,
+                        child: AutoSizeText(
+                          'Vous êtes les bienvenus\ndans notre application',
+                          style: TextStyle(
+                              fontSize: 28,
+                              fontFamily: 'Golos'
                           ),
                         ),
+
                       ),
-                      Expanded( flex: 5, child: Container(),),
+                      Spacer(flex: 5,),
                     ],
                   ),
-
-            Expanded( flex: 10, child: Container(),),
+            Spacer(flex: 10,),
             Row(
               children: [
-                Expanded(flex: 1, child: Container()),
-                Expanded(
-                  flex: 40,
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: AutoSizeText(
-                      'Nous apprécions chacun de nos clients et\nespérons que vous apprécierez avec nous',
-                      maxLines: 2,
-                      style: TextStyle(
-                        fontSize: 17,
-                        color: Color(0xff807F7F),
-                        fontFamily: 'Golos',
-                      ),
+                Spacer(flex: 1,),
+                Align(
+                  alignment: Alignment.center,
+                  child: AutoSizeText(
+                    'Nous apprécions chacun de nos clients et\nespérons que vous apprécierez avec nous',
+                    maxLines: 2,
+                    style: TextStyle(
+                      fontSize: 17,
+                      color: Color(0xff807F7F),
+                      fontFamily: 'Golos',
                     ),
                   ),
                 ),
-                Expanded(flex: 1, child: Container()),
+                Spacer(flex: 1,),
               ],
             ),
-            Expanded(
-                flex: 40,
-                child: Container(),
-            ),
+            Spacer(flex: 40,),
             Row(
               children: [
-                Expanded(flex: 1, child: Container()),
+                Spacer(flex: 1,),
                 Expanded(
                   flex: 24,
                   child: Container(
@@ -109,10 +80,10 @@ class WelcomeScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                Expanded(flex: 1, child: Container()),
+                Spacer(flex: 1,),
               ],
             ),
-           Expanded(flex: 407, child: Container(),),
+            Spacer(flex: 407,),
           ],
         ),
       ),
