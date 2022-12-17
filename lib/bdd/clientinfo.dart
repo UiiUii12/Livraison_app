@@ -128,10 +128,12 @@ class DatabaseService {
   }
   latitude(num n)async{
     await clientCollection.doc(uid).update({"latitude": n});
+    lat=n.toDouble();
 
   }
   longitude(num n)async{
     await clientCollection.doc(uid).update({"longitude": n});
+    long=n.toDouble();
   }
 
   UpdatePlatPlus(String uid) async {

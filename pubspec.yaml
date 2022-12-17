@@ -36,19 +36,22 @@ dependencies:
   flutter_screenutil: ^5.5.3+2
   provider: ^6.0.2
   google_map_location_picker_flutter: ^2.0.4
-  firebase_core: ^1.14.0
+  firebase_core: ^2.4.0
   geolocator:
   geocoding:
   geocode: ^1.0.2
-
+  dependencies:
+  google_maps_flutter: ^2.2.1
+  lottie: ^2.1.0
+  url_launcher: ^6.1.6
 
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   flutter_svg: any
-  firebase_auth: ^3.7.0
-  cloud_firestore: ^3.4.6
+  firebase_auth:
+  cloud_firestore:
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -75,6 +78,7 @@ flutter:
   assets:
     - assets/
     - lib/Asset/Images/
+    - assets/json/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

@@ -1,5 +1,7 @@
+import 'dart:math';
+
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:livraison_app/Ui/Category.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -25,6 +27,16 @@ class TabBarController extends GetxController with GetTickerProviderStateMixin {
     ) ;
     return tb ;
   }
+  static List<Color> ColorsPromo = [
+    Color(0xffE6424B),
+    Color(0xff3F3D56),
+    Color(0xfff9a825),
+    Color(0xffff6584),
+    Color(0xff8b4e56),
+    Color(0xff6b667c),
+    Color(0xffe1e0e1)
+  ];
+  static var ind=Random();
   void Continuer(bool ajouter , Food food , List continuer) {
 
     int index = continuer.indexOf(food)  != -1 ? continuer.indexOf(food) : 0 ;

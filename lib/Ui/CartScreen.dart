@@ -1,7 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 
 import 'package:geocoding/geocoding.dart';
-import 'package:livraison_app/Controller/AppController.dart';
+import 'package:livraison_app/controller/AppController.dart';
 import 'package:livraison_app/Ui/ConfirmationOrdersScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

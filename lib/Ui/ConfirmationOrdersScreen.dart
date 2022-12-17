@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:google_map_location_picker_flutter/google_map_location_picker_flutter.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:livraison_app/Ui/CartScreen.dart';
 import 'package:livraison_app/Wrappers/wrapper2.dart';
 
@@ -118,7 +120,29 @@ class ConfirmationOrdersScreen extends StatelessWidget {
                             ],
                           ),
                         ) ,
-                        TextButton(onPressed: (){},
+                        TextButton(onPressed: () async{
+                          AddressResult result = await  showGoogleMapLocationPicker(
+
+                              pinWidget: Icon(Icons.location_pin,color: Colors.red,size: 55,),
+                              pinColor: Colors.blue,
+                              context: context,
+                              addressPlaceHolder: "حرك الخريطة",
+                              addressTitle: "عنوان التوصيل",
+                              apiKey: "AIzaSyCNCIcIpC47x2pTyRmT6jmLqo919HISBCo",
+                              appBarTitle: "حدد موقع التوصيل",
+                              confirmButtonColor: Colors.blue,
+                              confirmButtonText: "تأكيد الموقع",
+                              confirmButtonTextColor: Colors.black,
+                              country:"alger",
+                              language:"ar" ,
+                              searchHint: "ابحث عن موقع", initialLocation: LatLng(DatabaseService.lat!,DatabaseService.long!),
+                              //outOfBoundsMessage: "erruer"
+                          );
+                          print('///////////////');
+                          if(result!=null){
+                            print(result.address);
+                          }
+                        },
                             child: AutoSizeText(
                               'Modifier' ,
                               textAlign: TextAlign.start,

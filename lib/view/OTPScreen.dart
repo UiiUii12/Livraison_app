@@ -4,7 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+
 
 import 'package:livraison_app/view/AdresseScreen.dart';
 import 'package:livraison_app/view/LoginScreen.dart';

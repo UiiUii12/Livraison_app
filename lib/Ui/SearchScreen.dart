@@ -1,6 +1,6 @@
 
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:livraison_app/Controller/AppController.dart';
+import 'package:livraison_app/controller/AppController.dart';
 
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
