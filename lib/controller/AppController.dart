@@ -64,6 +64,10 @@ class AppController extends GetxController {
 
 
   ];
+  List<Restaurant> restaurant = [
+
+
+  ];
   List<Food> Pizza = [
 
 

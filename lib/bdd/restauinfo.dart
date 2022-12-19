@@ -130,7 +130,7 @@ class RestauService {
 
 
       await FirebaseFirestore.instance
-          .collection('Plats')
+          .collection('Client')
           .add({
         "nom":'' ,
         "description":'' ,

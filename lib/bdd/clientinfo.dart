@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
-
 import 'package:livraison_app/bdd/classes.dart';
 import 'package:livraison_app/bdd/restauinfo.dart';
 
@@ -218,5 +217,83 @@ langlat()async{
         'quentite':list![i].counter.toInt(),
       });
     }
+  }
+
+  writeMescommande() async {
+
+
+    await FirebaseFirestore.instance
+        .collection('Client').doc(uid).collection("commande")
+        .add({
+      "nom":'Magic pizza' ,
+
+      "date": "2022",
+      "cout total":0,
+      "Livraison": 0,
+      "Vos commandes":0,
+      "Total":0,
+
+
+    });
+}
+
+
+  List<MaCommande> _MacommandList(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc) {
+      return MaCommande(
+        nom: doc.get("nom").toString(),
+          id: doc.id.toString(),
+          date: doc.get("date").toString(),
+          livraison: doc.get("Livraison").toInt(),
+          total: doc.get("Total").toInt(),
+          etat:doc.get("etat").toString(),
+          voscommande: doc.get("Vos commandes").toInt());
+    }).toList();
+  }
+
+  Stream<List<MaCommande>> get MaCommand {
+    return clientCollection
+        .doc(uid)
+        .collection("commande")
+        .snapshots()
+        .map((snapshot) => _MacommandList(snapshot));
+  }
+
+
+
+
+  List<Maplat> _MaplatList(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc) {
+      return Maplat(
+          nom: doc.get("nom").toString(),
+          descreption:  doc.get("description").toString(),
+          prix:  doc.get("prix").toInt(),
+          quantite:  doc.get("quantite").toInt());
+    }).toList();
+  }
+
+  Stream< List<Maplat>> Mapla( String id) {
+    return clientCollection
+        .doc(uid)
+        .collection("commande").doc(id).collection("plat")
+        .snapshots()
+        .map((snapshot) => _MaplatList(snapshot));
+  }
+
+  writeMaplat() async {
+
+
+    await FirebaseFirestore.instance
+        .collection('Client').doc(uid).collection("commande").doc("sxU7Li2Cma5yGSZ7ukyt").collection("plat")
+        .add({
+      "nom":'Magic pizza' ,
+
+      "description": "bla bla bla ",
+      "prix":0,
+      "quantite": 0,
+
+
+
+    });
   }
 }

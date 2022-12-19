@@ -1,5 +1,6 @@
 
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:livraison_app/bdd/clientinfo.dart';
 import 'package:livraison_app/controller/AppController.dart';
 
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
@@ -7,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:livraison_app/Ui/Restaurant.dart';
+import 'package:provider/provider.dart';
+import '../auth/user.dart';
 import '../bdd/restauinfo.dart';
 import 'Food.dart';
 
@@ -34,6 +37,8 @@ class _SearchScreenState extends State<SearchScreen> {
 String text ='';
      controller.restaurants=SearchScreen.lo;
      controller.Pizza=SearchScreen.li;
+   final user = Provider.of<MyUser?>(context);
+ //  DatabaseService(uid: user!.uid).writeMaplat();
 
             return SafeArea(
               child: Scaffold(

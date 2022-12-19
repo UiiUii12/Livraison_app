@@ -19,7 +19,7 @@ class Wrapper2 extends StatelessWidget {
         stream:  RestauService().restaurantList,
         builder: (context, snapshot) {
       List<Restaurant> list = [];
-      String text='';
+
 
       if (snapshot.hasData) {
         list = snapshot.data!;
