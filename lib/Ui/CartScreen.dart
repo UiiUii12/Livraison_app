@@ -20,7 +20,7 @@ class CartScreen extends StatelessWidget {
  final double inisial_price;
   @override
   Widget build(BuildContext context) {
-print('jooooooooooooooooooooooooooooo');
+
     var cout_total = 0.0.obs ;
     cout_total.value =  inisial_price ;
     RestauService.List_of_food=cart;

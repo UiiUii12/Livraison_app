@@ -8,6 +8,7 @@ import '../Ui/Restaurant.dart';
 
 import '../auth/user.dart';
 import '../bdd/restauinfo.dart';
+import '../classes/restaurant.dart';
 import '../view/HomeScreen.dart';
 
 
@@ -18,12 +19,11 @@ class Wrapper3 extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = Provider.of<MyUser?>(context);
 
-    return StreamBuilder<List<Restaurant>>(
-        stream:  RestauService().restaurantList,
+    return StreamBuilder<List<Restaurant2>>(
+        stream:  RestauService().restaurant2List,
         builder: (context, snapshot) {
-          List<Restaurant> list = [];
-          print("+++++++++++++++++++++++++++++++++");
-          print(snapshot.hasData);
+          List<Restaurant2> list = [];
+
 
           if (snapshot.hasData) {
             list = snapshot.data!;

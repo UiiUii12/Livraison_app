@@ -1,4 +1,4 @@
-import 'dart:math';
+
 
 class Promo{
   late String pic;

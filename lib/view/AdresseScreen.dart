@@ -3,25 +3,28 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:livraison_app/bdd/restauinfo.dart';
 import 'package:provider/provider.dart';
-import '../Ui/SearchScreen.dart';
-import '../Wrappers/wrapper2.dart';
 import '../auth/user.dart';
 import '../bdd/clientinfo.dart';
+import 'HomeScreen.dart';
 import 'currentPage.dart';
 
 
 
 
 class AdresseScreen extends StatefulWidget {
+
   AdresseScreen({Key? key}) : super(key: key);
+
 
   @override
   State<AdresseScreen> createState() => _AdresseScreenState();
+
 }
+
 double long = 0, lat = 0;
 class _AdresseScreenState extends State<AdresseScreen> {
   bool servicestatus = false;
@@ -155,7 +158,7 @@ class _AdresseScreenState extends State<AdresseScreen> {
 
   @override
   Widget build(BuildContext context) {
-
+    final user = Provider.of<MyUser?>(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
@@ -291,7 +294,17 @@ class _AdresseScreenState extends State<AdresseScreen> {
                   child: Container(
                     height: 50,
                     child: ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
+
+                        await  DatabaseService(uid: user!.uid).langlat();
+
+
+
+                        List<Placemark> placemarks = await placemarkFromCoordinates(DatabaseService.lat!, DatabaseService.long!);
+
+
+                        var first = placemarks[0].locality??'';
+                       Home.adress=first;
                         Get.offAll(Main_Page());
 
                       },

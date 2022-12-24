@@ -91,7 +91,7 @@ class _PromotionState extends State<Promotion>with AutomaticKeepAliveClientMixin
                      flex:112,
                      child: Container(
                          width:112.w,
-                         child: Image.asset('assets/images/promo1.png')),
+                         child: Image.network(widget.image)),
                    ),
                     Spacer(flex: 8,),
                   ],)

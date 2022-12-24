@@ -9,6 +9,7 @@ import '../Ui/OnBoarding_Pages.dart';
 import '../Ui/Restaurant.dart';
 import '../classes/categorie.dart';
 import '../classes/promo.dart';
+import '../classes/restaurant.dart';
 
 
 class AppController extends GetxController {
@@ -68,12 +69,16 @@ class AppController extends GetxController {
 
 
   ];
+  List<Restaurant2> restaurant2 = [
+
+
+  ];
   List<Food> Pizza = [
 
 
   ];
 
-  final List<Promo> promo = [
+ List<Promo> promo = [
     new Promo('assets/images/promo1.png','Pizza | Street 22','Achetez 1,obtenez- 1 gratuitement','Pizza géante: poulet et viande hachée'),
     new Promo('assets/images/promo1.png','Pizza | Street 22','Achetez 1,obtenez- 1 gratuitement','Pizza géante: poulet et viande hachée'),
     new Promo('assets/images/promo1.png','Pizza | Street 22','Achetez 1,obtenez- 1 gratuitement','Pizza géante: poulet et viande hachée'),
@@ -85,11 +90,6 @@ class AppController extends GetxController {
     Category([],'Soup','assets/soup.svg',),
     Category([],'Sandwich','assets/sandwich.svg',),
     Category([],'Drink','assets/drink.svg',),
-    Category([],'Burger','assets/sandwich.svg',),
-    Category([],'Burger','assets/sandwich.svg',),
-    Category([],'Burger','assets/sandwich.svg',),
-    Category([],'Burger','assets/sandwich.svg',),
-    Category([],'Burger','assets/sandwich.svg',),
     Category([],'Burger','assets/sandwich.svg',),
     Category([],'Burger','assets/sandwich.svg',),
   ];

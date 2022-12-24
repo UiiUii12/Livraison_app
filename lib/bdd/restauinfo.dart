@@ -3,8 +3,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:livraison_app/Ui/Restaurant.dart';
 
 import 'package:livraison_app/bdd/classes.dart';
+import 'package:livraison_app/classes/promotion.dart';
 
 import '../Ui/Food.dart';
+import '../classes/promo.dart';
+import '../classes/restaurant.dart';
 
 class RestauService {
   static String plasImage = "", foodImage = "", name = "";
@@ -163,4 +166,51 @@ class RestauService {
         .snapshots()
         .map((snapshot) => _foodlist(snapshot));
   }
+  List<Promotion> _promoListo(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc) {
+
+      return Promotion(
+          image: doc.get("pic").toString(),
+      nameRestaurant: doc.get("name").toString(),
+      offre: doc.get("offre").toString(),
+      descriptionOffre: doc.get("descOffre").toString());
+    }).toList();
+  }
+
+  Stream<List<Promotion>> get promoList {
+    return  FirebaseFirestore.instance.collection('Promotion')
+        .snapshots()
+        .map((snapshot) => _promoListo(snapshot));
+  }
+  List<Restaurant2> _restaurant2List(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc) {
+      return Restaurant2(image: doc.get("ImageUrl").toString(),
+          name: doc.get("nom").toString(),
+         longitude: doc.get("Longitude").toDouble(),
+          latitude: doc.get("Latitude").toDouble(),
+        id: doc.get("ID").toString(),
+        adress: doc.get("Adress").toString(),
+          state: doc.get("state"),);
+
+
+       /* Restaurant(
+        nom: doc.get("nom").toString(),
+        longitude: doc.get("Longitude").toDouble(),
+        imageUrl: doc.get("ImageUrl").toString(),
+        latitude: doc.get("Latitude").toDouble(),
+        id: doc.get("ID").toString(),
+        phone: doc.get("phone").toString(),
+        adress: doc.get("Adress").toString(),
+        ImageUrl: doc.get("ImageUrl").toString(),
+        state: doc.get("state"),);
+      */
+    }).toList();
+  }
+
+  Stream<List<Restaurant2>> get restaurant2List {
+    return restauCollection
+        .snapshots()
+        .map((snapshot) => _restaurant2List(snapshot));
+  }
+
 }
