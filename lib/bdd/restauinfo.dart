@@ -1,19 +1,19 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:livraison_app/Ui/Restaurant.dart';
-
 import 'package:livraison_app/bdd/classes.dart';
 import 'package:livraison_app/classes/promotion.dart';
-
 import '../Ui/Food.dart';
-import '../classes/promo.dart';
 import '../classes/restaurant.dart';
+
 
 class RestauService {
   static String plasImage = "", foodImage = "", name = "";
   static List<Food> List_of_food =[];
   final CollectionReference restauCollection =
   FirebaseFirestore.instance.collection('Restaurant');
+
+  ////////////////////////////////////////////////////////////////
 
   List<String> _sugestion(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
@@ -24,6 +24,8 @@ class RestauService {
   Stream<List<String>> get sugestion {
     return restauCollection.snapshots().map((snapshot) => _sugestion(snapshot));
   }
+
+  ////////////////////////////////////////////////////////////////
 
   List<String> _promotion(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
@@ -37,6 +39,8 @@ class RestauService {
         .snapshots()
         .map((snapshot) => _promotion(snapshot));
   }
+
+  ////////////////////////////////////////////////////////////////
 
   List<Restaurant> _restaurantList(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
@@ -59,6 +63,8 @@ class RestauService {
         .map((snapshot) => _restaurantList(snapshot));
   }
 
+  ////////////////////////////////////////////////////////////////
+
   PartRestaurant _partRestau(DocumentSnapshot snapshot) {
     return PartRestaurant(
         nom: snapshot.get("nom"), imageUrl: snapshot.get("ImageUrl"));
@@ -70,6 +76,8 @@ class RestauService {
         .snapshots()
         .map((snapshot) => _partRestau(snapshot));
   }
+
+/////////////////////////////////////////////////////////////
 
   List<Plat> _categoreList(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
@@ -93,6 +101,9 @@ class RestauService {
         .map((snapshot) => _categoreList(snapshot));
   }
 
+
+///////////////////////////////////////////////////////
+
   List<String> _tabcate(DocumentSnapshot snapshot) {
     var t = snapshot.get("Categories");
 
@@ -109,18 +120,8 @@ class RestauService {
         .snapshots()
         .map((snapshot) => _tabcate(snapshot));
   }
+////////////////////////////////////////////////////
 
-  getfoodImage(String cate) {
-    if (cate == "Pizzas") {
-      foodImage = "images/pizza.png";
-    } else if (cate == "Burger") {
-      foodImage = "images/burger.png";
-    } else if (cate == "Tacos") {
-      foodImage = "images/tacos.png";
-    } else {
-      foodImage = "images/chicken.png";
-    }
-  }
 
 
 
@@ -146,6 +147,11 @@ class RestauService {
       });
 
   }
+
+
+  ///////////////////////////////////////////////////////
+
+
   List<Food> _foodlist(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
 
@@ -166,6 +172,8 @@ class RestauService {
         .snapshots()
         .map((snapshot) => _foodlist(snapshot));
   }
+
+  ////////////////////////////////////////////////////////////////////
   List<Promotion> _promoListo(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
 
@@ -182,6 +190,9 @@ class RestauService {
         .snapshots()
         .map((snapshot) => _promoListo(snapshot));
   }
+
+  ////////////////////////////////////////////////////////////////
+
   List<Restaurant2> _restaurant2List(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
       return Restaurant2(image: doc.get("ImageUrl").toString(),
@@ -204,6 +215,7 @@ class RestauService {
         ImageUrl: doc.get("ImageUrl").toString(),
         state: doc.get("state"),);
       */
+
     }).toList();
   }
 
@@ -212,5 +224,53 @@ class RestauService {
         .snapshots()
         .map((snapshot) => _restaurant2List(snapshot));
   }
+  ////////////////////////////////////////////////////////////////
+  Restaurant _Restau(DocumentSnapshot snapshot) {
+    return Restaurant(
+        nom: snapshot.get("nom"),
+        adress: snapshot.get("Adress"),
+        id: snapshot.id,
+        phone:  snapshot.get("phone"),
+        state:  snapshot.get("state"),
+        imageUrl:  snapshot.get("ImageUrl"),
+        ImageUrl: snapshot.get("ImageUrl"),
+        longitude: snapshot.get("Longitude"),
+        latitude: snapshot.get("Latitude"));
+  }
+
+  Stream<Restaurant> Restau(String uid) {
+    return restauCollection
+        .doc(uid)
+        .snapshots()
+        .map((snapshot) => _Restau(snapshot));
+  }
+
+  ///////////////////////////////////////
+
+
+  List<cat> _catlist(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc) {
+
+      return cat(id: doc.id, nom: doc.get("nom"));
+
+    }).toList();
+  }
+
+  Stream<List<cat>> catlist() {
+    return FirebaseFirestore.instance.collection('Categories')
+        .snapshots()
+        .map((snapshot) => _catlist(snapshot));
+  }
+
+
+
+  Stream<List<Food>> food2list(String ui) {
+    return FirebaseFirestore.instance.collection('Categories').doc(ui).collection("plats")
+        .snapshots()
+        .map((snapshot) => _foodlist(snapshot));
+  }
+
+
 
 }
+// 11 fonction

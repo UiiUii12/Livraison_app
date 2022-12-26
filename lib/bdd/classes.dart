@@ -31,3 +31,8 @@ class Maplat{
   final int prix,quantite;
   Maplat({required this.nom,required this.descreption,required this.prix,required this.quantite});
 }
+class cat {
+  final String id;
+  final String nom;
+  cat({required this.id, required this.nom});
+}

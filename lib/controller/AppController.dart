@@ -2,11 +2,11 @@
 import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:livraison_app/Ui/SearchScreen.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../Ui/Food.dart';
 import '../Ui/OnBoarding_Pages.dart';
 import '../Ui/Restaurant.dart';
+import '../Ui/foodSearch.dart';
 import '../classes/categorie.dart';
 import '../classes/promo.dart';
 import '../classes/restaurant.dart';
@@ -43,6 +43,7 @@ class AppController extends GetxController {
     Color(0xff6b667c),
     Color(0xffe1e0e1)
   ];
+
   static var ind=Random();
 
 
@@ -77,12 +78,14 @@ class AppController extends GetxController {
 
 
   ];
+  List <Map<String , List<Food_Search>>> food =[
+
+    { 'Pizza': [Food_Search(image: 'lib/Asset/Images/Pizza.png', name: 'Pizza Poulet', prix: 500, description: 'Fromage, Poulet, Sauce Fromage', restaurant: Restaurant( nom: 'DamiS', phone: '', ImageUrl: 'lib/Asset/Images/rest.jpg', id: '', state: false, adress: '', longitude: 0,latitude: 0, imageUrl: '',  ), id: '' ,)
+
+  ]}];
 
  List<Promo> promo = [
-    new Promo('assets/images/promo1.png','Pizza | Street 22','Achetez 1,obtenez- 1 gratuitement','Pizza géante: poulet et viande hachée'),
-    new Promo('assets/images/promo1.png','Pizza | Street 22','Achetez 1,obtenez- 1 gratuitement','Pizza géante: poulet et viande hachée'),
-    new Promo('assets/images/promo1.png','Pizza | Street 22','Achetez 1,obtenez- 1 gratuitement','Pizza géante: poulet et viande hachée'),
-    new Promo('assets/images/promo1.png','Pizza | Street 22','Achetez 1,obtenez- 1 gratuitement','Pizza géante: poulet et viande hachée'),
+
   ];
 
   List<Category> Categ = [
@@ -135,7 +138,7 @@ class AppController extends GetxController {
     }
     list1=l;
 
-    SearchScreen.lo=list1;
+    //SearchScreen.lo=list1;
     update();
   }
   void sug2( List<Food> list1,  String s) {
@@ -148,11 +151,9 @@ class AppController extends GetxController {
     }
     list1=l;
 
-    SearchScreen.li=list1;
+   // SearchScreen.li=list1;
     update();
   }
-  void j(){}
-
 
 
   @override

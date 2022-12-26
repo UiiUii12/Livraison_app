@@ -43,6 +43,9 @@ class DatabaseService {
   }
 
 
+
+
+
   updatUserdata() {
     clientCollection.doc(uid).get().then((value) {
       if (!value.exists) {
@@ -164,6 +167,12 @@ class DatabaseService {
         .doc(uid)
         .update({"quentite": nbPlat - 1});
   }
+
+
+  ////////////////////////////////////////////////////////////////
+
+
+
 langlat()async{
   await clientCollection
       .doc(uid)
@@ -174,6 +183,10 @@ langlat()async{
       .get()
       .then((value) => lat = value.get("latitude"));
 }
+
+////////////////////////////////////////////////////////////////
+
+
   writeCommande(String s) async {
     var dt = DateTime.now();
     String time;
@@ -219,6 +232,8 @@ langlat()async{
     }
   }
 
+  ////////////////////////////////////////////////////////////////
+
   writeMescommande() async {
 
 
@@ -237,6 +252,8 @@ langlat()async{
     });
 }
 
+
+////////////////////////////////////////////////////////////////
 
   List<MaCommande> _MacommandList(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
@@ -260,7 +277,7 @@ langlat()async{
   }
 
 
-
+////////////////////////////////////////////////////////////////
 
   List<Maplat> _MaplatList(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
@@ -280,6 +297,9 @@ langlat()async{
         .map((snapshot) => _MaplatList(snapshot));
   }
 
+  ////////////////////////////////////////////////////////////////
+
+
   writeMaplat() async {
 
 
@@ -287,7 +307,6 @@ langlat()async{
         .collection('Client').doc(uid).collection("commande").doc("sxU7Li2Cma5yGSZ7ukyt").collection("plat")
         .add({
       "nom":'Magic pizza' ,
-
       "description": "bla bla bla ",
       "prix":0,
       "quantite": 0,
@@ -297,3 +316,4 @@ langlat()async{
     });
   }
 }
+ // 5 fonction

@@ -323,8 +323,11 @@ class _OTPScreenState extends State<OTPScreen> {
             });
           },
           timeout: Duration(seconds: 60));
-    } catch (e) {}
+    } catch (e) {
+
+    }
   }
 }
 
 
+/// 2 function

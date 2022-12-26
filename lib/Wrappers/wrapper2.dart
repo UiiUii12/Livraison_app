@@ -5,6 +5,7 @@ import '../Ui/Food.dart';
 import '../Ui/Restaurant.dart';
 import '../Ui/SearchScreen.dart';
 import '../auth/user.dart';
+import '../bdd/classes.dart';
 import '../bdd/restauinfo.dart';
 
 
@@ -26,10 +27,11 @@ class Wrapper2 extends StatelessWidget {
 
       }
       SearchScreen.lo=list;
-      return StreamBuilder<List<Food>>(
-        stream: RestauService().foodlist(),
+
+      return StreamBuilder<List<cat>>(
+        stream: RestauService().catlist(),
         builder: (context, snapshot) {
-          List<Food> list2 = [];
+          List<cat> list2 = [];
 
           print(snapshot.hasData);
           if (snapshot.hasData) {
@@ -37,7 +39,9 @@ class Wrapper2 extends StatelessWidget {
 
           }
           SearchScreen.li=list2;
-          return SearchScreen(list1: list,list2: list2);
+         //
+          // return SearchScreen(list1: list,list2: list2);
+          return  SearchScreen();
         }
       );
         });
