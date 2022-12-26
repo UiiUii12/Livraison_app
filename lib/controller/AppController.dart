@@ -78,11 +78,7 @@ class AppController extends GetxController {
 
 
   ];
-  List <Map<String , List<Food_Search>>> food =[
 
-    { 'Pizza': [Food_Search(image: 'lib/Asset/Images/Pizza.png', name: 'Pizza Poulet', prix: 500, description: 'Fromage, Poulet, Sauce Fromage', restaurant: Restaurant( nom: 'DamiS', phone: '', ImageUrl: 'lib/Asset/Images/rest.jpg', id: '', state: false, adress: '', longitude: 0,latitude: 0, imageUrl: '',  ), id: '' ,)
-
-  ]}];
 
  List<Promo> promo = [
 

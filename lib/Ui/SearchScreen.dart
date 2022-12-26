@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:livraison_app/Ui/Restaurant.dart';
+import 'package:livraison_app/Ui/foodSearch.dart';
 import 'package:livraison_app/bdd/restauinfo.dart';
 import '../Ui/Food.dart';
 import '../bdd/classes.dart';
@@ -142,7 +143,8 @@ Bienvenue dans notre magasin ! """,
                                                       height: 220.h ,
                                                       width:281.w ,
                                                       child:
-                                                     food[index3], // fkol categorie les plas
+                                                          Food_Search(image: '', name: food[index3].nom, prix: food[index3].prix, description: food[index3].descreption, restaurant: food[index3].resId, id: '', )
+                                                      // fkol categorie les plas
                                                     ),
                                                     SizedBox(width: 10.w,) ,
                                                   ],
