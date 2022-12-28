@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 
-
 class WelcomeScreen extends StatelessWidget {
   WelcomeScreen({Key? key}) : super(key: key);
 
@@ -19,16 +18,17 @@ class WelcomeScreen extends StatelessWidget {
                   Row(
                     children: [
                       Spacer(flex: 5,),
-                      Align(
-                        alignment: Alignment.center,
-                        child: AutoSizeText(
-                          'Vous êtes les bienvenus\ndans notre application',
-                          style: TextStyle(
-                              fontSize: 28,
-                              fontFamily: 'Golos'
-                          ),
+                      AutoSizeText.rich(
+                        TextSpan(
+                            children:[
+                              TextSpan(text: 'Vous êtes les bienvenus'),
+                              TextSpan(text: '\ndans notre application'),
+                            ]
                         ),
-
+                        style: TextStyle(
+                            fontSize: 28,
+                            fontFamily: 'Golos'
+                        ),
                       ),
                       Spacer(flex: 5,),
                     ],

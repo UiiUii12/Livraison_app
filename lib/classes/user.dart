@@ -1,12 +1,14 @@
 import 'commande.dart';
 
 class User{
-  User(String numeroTelephone,String currentAdresse,List<Commande> mesCommandes ){
-    this.numeroTelephone=numeroTelephone;
-    this.currentAdresse=currentAdresse;
-    this.mesCommandes=mesCommandes;
+
+  User(String nom,String numeroTelephone){
+    this.nom=numeroTelephone;
+    this.numeroTelephone='213$numeroTelephone';
+
   }
+  late String nom;
   late String numeroTelephone;
-  late String currentAdresse;
-  late List<Commande> mesCommandes;
+  late String Adresse;
+
 }

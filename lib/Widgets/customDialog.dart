@@ -11,7 +11,6 @@ Widget customDialog({required title,required ligne1,required ligne2,required ass
       Expanded(
         flex:361,
         child: Dialog(
-          insetAnimationDuration: Duration(milliseconds: 100),
           child: Container(
             decoration:BoxDecoration(
                 borderRadius: BorderRadius.circular(30)
@@ -26,7 +25,6 @@ Widget customDialog({required title,required ligne1,required ligne2,required ass
                     child: AutoSizeText(title,style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.w500,color: Colors.black,fontFamily: 'Golos'),)),
                 SizedBox(height: 15.h,),
                 AutoSizeText.rich(
-                  textAlign:TextAlign.center,
                   TextSpan(
                       children: [
                         TextSpan(
@@ -37,7 +35,9 @@ Widget customDialog({required title,required ligne1,required ligne2,required ass
                         ),
                       ]
                   )
-                  ,style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.w400,color: Color(0xffB8B4B4,),fontFamily: 'Golos'),),
+                  ,
+                  textAlign:TextAlign.center,
+                  style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.w400,color: Color(0xffB8B4B4,),fontFamily: 'Golos'),),
                 Spacer(flex: 15,),
               ],
             ),

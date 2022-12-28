@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
@@ -5,17 +7,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../Widgets/customDialog.dart';
-import '../controller/AppController.dart';
+import 'package:livraison_app/Widgets/customDialog.dart';
+import 'package:livraison_app/Controller/AppController.dart';
+import 'package:livraison_app/Controller/OTPScreenController.dart';
 
 class OTPScreen extends StatefulWidget {
-  OTPScreen({Key? key}) : super(key: key);
+  final phoneNumber;
+  OTPScreen({Key? key,required this.phoneNumber}) : super(key: key);
+
   @override
   State<OTPScreen> createState() => _OTPScreenState();
 }
 
 class _OTPScreenState extends State<OTPScreen> {
-  AppController controller = Get.put(permanent: true, AppController());
+  OTPScreenController controller = Get.put( OTPScreenController(),permanent: true,);
+
   Widget build(BuildContext context) {
     final Uri _number = Uri.parse('tel:+213556000010');
     return Scaffold(
@@ -54,7 +60,7 @@ class _OTPScreenState extends State<OTPScreen> {
                       text: TextSpan(children: [
                         TextSpan(
                             text:
-                                'Vous recevrez un code de 6 chiffres sur votre\nnuméro de téléphone +213*******10, ',
+                                'Vous recevrez un code de 6 chiffres sur votre\nnuméro de téléphone +213${widget.phoneNumber.text}, ',
                             style: TextStyle(
                               color: Color(0xff807F7F),
                               fontSize: 17,
@@ -168,7 +174,7 @@ class _OTPScreenState extends State<OTPScreen> {
                 Expanded(
                   flex: 24,
                   child: GetBuilder(
-                    builder: (AppController controller) => Container(
+                    builder: (OTPScreenController controller) => Container(
                       height: 50,
                       child: ElevatedButton(
                         onPressed:
@@ -178,22 +184,17 @@ class _OTPScreenState extends State<OTPScreen> {
                                 controller.submit4 &&
                                 controller.submit5 &&
                                 controller.submit6
-                            ? () {
-                                  controller.codeTrue?
-                                  Navigator.pushNamed(context, '/welcome')
-                                  :
-                                  showDialog(
-                                    //barrierDismissible: false,
-                                      context: context,
-                                      builder: (BuildContext context){
-                                        return customDialog(
-                                          title: "le code de vérification est erroné",
-                                          ligne1:"votre code est erroné, veuillez ajouter" ,
-                                          ligne2: "un code valide",
-                                          asset:'assets/json/sending.json' ,
-                                        );
-                                      });
-                              }
+                            ? () async {
+                                if(controller.codeTrue){
+                                  Get.toNamed('/welcome');}
+                                    else{
+                                      AppController.showDialogButton(
+                                      'le code de vérification est erroné',
+                                      'votre code est erroné veuillez ajouter',
+                                      'un code valide',
+                                      'assets/json/exclamation.json',
+
+                                      );}}
                             : null,
                         child: Text(
                           'Continue',

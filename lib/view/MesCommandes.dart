@@ -2,41 +2,40 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:livraison_app/classes/commande.dart';
-import '../classes/plat.dart';
+import 'package:livraison_app/Controller/MesCommandesScreenController.dart';
+import 'package:livraison_app/classes/plat.dart';
 
 class MesCommandes extends StatelessWidget {
   MesCommandes({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    MesCommandesScreenController controller =Get.put(MesCommandesScreenController(),permanent:true);
     List<Plat> plats = [
-      new Plat('Pizza Poulet', 'Fromage, Poulet , Sauce rouge', 'Pizza', 400, 1),
-      new Plat('Cocacola', '1Lettre', 'Boisson', 100, 2),
-     // new Plat('Cocacola', '1Lettre', 'Boisson', 100, 2),
-    //  new Plat('Cocacola', '1Lettre', 'Boisson', 100, 2),
-    ];
+      Plat('Pizza Poulet',400, 'Fromage, Poulet , Sauce rouge',2),
+      Plat('Cocacola', 100,'1Lettre',3),];
     List<Plat> plats1 = [
-      new Plat('Pizza Poulet', 'Fromage, Poulet , Sauce rouge', 'Pizza', 400, 1),
-      new Plat('Pizza Poulet', 'Fromage, Poulet , Sauce rouge', 'Pizza', 400, 1),
-      new Plat('Cocacola', '1Lettre', 'Boisson', 100, 2),
-      new Plat('Cocacola', '1Lettre', 'Boisson', 100, 2),
-      new Plat('Cocacola', '1Lettre', 'Boisson', 100, 2),
-      new Plat('Cocacola', '1Lettre', 'Boisson', 100, 2),
-      new Plat('Cocacola', '1Lettre', 'Boisson', 100, 2),
-      // new Plat('Cocacola', '1Lettre', 'Boisson', 100, 2),
-      //  new Plat('Cocacola', '1Lettre', 'Boisson', 100, 2),
+      Plat('Pizza Poulet', 400,'Fromage, Poulet , Sauce rouge',5),
+      Plat('Pizza Poulet',  400,'Fromage, Poulet , Sauce rouge',1),
+      Plat('Cocacola', 100,'1Lettre',1),
+      Plat('Cocacola',100,'1Lettre',2),
+      Plat('Cocacola',  100,'1Lettre',3),
+      Plat('Cocacola',100,'1Lettre',4),
+      Plat('Cocacola',100,'1Lettre',1),
     ];
 
     Commande c1 = new Commande('Magic pizza', '16 juin 2022', 'En cours',plats);
-    Commande c2 = new Commande('Magic pizza', '13 juin 2022', 'Prête', plats1);
-    Commande c3 = new Commande('Magic pizza', '3 mars 2022', 'En cours', plats);
-    Commande c4 = new Commande('Magic pizza', '9 février 2022', 'Prête',plats);
-    Commande c5 = new Commande('Magic pizza', '9 février 2022', 'Prête',plats1);
-    Commande c6 = new Commande('Magic pizza', '9 février 2022', 'Prête', plats);
-    Commande c7 = new Commande('Magic pizza', '9 février 2022', 'Prête', plats);
-    Commande c8 = new Commande('Magic pizza', '9 février 2022', 'Prête',plats);
-    Commande c9 = new Commande('Magic pizza', '9 février 2022', 'Prête', plats);
-    Commande c10 = new Commande('Magic pizza', '9 février 2022', 'Prête',plats);
+    Commande c2 = new Commande('Magic pizza', '13 juin 2022', 'Completée', plats1);
+    Commande c3 = new Commande('Magic pizza', '3 mars 2022', 'Annulée', plats);
+    Commande c4 = new Commande('Magic pizza', '9 février 2022', 'Completée',plats);
+    Commande c5 = new Commande('Magic pizza', '9 février 2022', 'Completée',plats1);
+    Commande c6 = new Commande('Magic pizza', '9 février 2022', 'Completée', plats);
+    Commande c7 = new Commande('Magic pizza', '9 février 2022', 'Annulée', plats);
+    Commande c8 = new Commande('Magic pizza', '9 février 2022', 'Completée',plats);
+    Commande c9 = new Commande('Magic pizza', '9 février 2022', 'Completée', plats);
+    Commande c10 = new Commande('Magic pizza', '9 février 2022', 'Completée',plats);
     List commandes = [c1, c2, c3, c4,c5,c6,c7,c8,c9,c10,c10,c10,c10,];
 
     return Scaffold(
@@ -137,7 +136,7 @@ class MesCommandes extends StatelessWidget {
                                               decoration: BoxDecoration(
                                                 borderRadius:
                                                 BorderRadius.circular(9),
-                                                color: etat=='Prête'? Color(0xffE8F7E5):Color(0xffFCF5E4),
+                                                color:etat=='Completée'?Color(0xffE8F7E5) :etat=='En cours'?Color(0xffFCF5E4):Color(0xffFAB4B8)
                                               ),
                                               child: Column(
                                                 mainAxisAlignment:
@@ -148,7 +147,7 @@ class MesCommandes extends StatelessWidget {
                                                     child: AutoSizeText(
                                                       '${etat}',
                                                       style: TextStyle(
-                                                        color: etat=='Prête'? Color(0xff669965):Color(0xffCFAA72),
+                                                        color: etat=='Completée'? Color(0xff669965):etat=='En cours'?Color(0xffCFAA72):Color(0xffE6424B),
                                                         fontFamily: 'Golos',
                                                         fontSize: 15.sp,
                                                       ),
@@ -171,7 +170,7 @@ class MesCommandes extends StatelessWidget {
                                                     Align(
                                                       alignment: Alignment.centerLeft,
                                                       child: AutoSizeText(
-                                                        '${plats[index].nom} ${plats[index].prix}DA',
+                                                        '${plats[index].quantite}x ${plats[index].name} ${plats[index].prix}DA',
                                                         style: TextStyle(
                                                           fontSize: 15.sp,
                                                           fontWeight: FontWeight.w400,

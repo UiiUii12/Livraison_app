@@ -1,7 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'currentPage.dart';
 
 class OrderConfirmerScreen extends StatelessWidget {
@@ -16,7 +17,17 @@ class OrderConfirmerScreen extends StatelessWidget {
         child: Column(
           children: [
             Expanded(flex:250, child: Container(),),
-            Expanded(flex:229, child: Image.asset('assets/OrderConfirmer.png')),
+            Expanded(
+              flex: 229,
+              child: Row(
+                children: [
+                  Spacer(flex: 30,),
+                  Expanded(flex:370, child:SvgPicture.asset('assets/images/undraw_on_the_way_re_swjt.svg',)),
+                  Spacer(flex: 28,),
+                ],
+              ),
+            ),
+            Spacer(flex: 4,),
             Row(
               children: [
                 Expanded(flex: 5, child: Container()),
@@ -45,8 +56,8 @@ class OrderConfirmerScreen extends StatelessWidget {
                   child: Align(
                     alignment: Alignment.center,
                     child: AutoSizeText(
-                      maxLines: 1,
                       'vers vous',
+                      maxLines: 1,
                       style: TextStyle(
                           fontSize: 28,
                           fontFamily: 'Golos'

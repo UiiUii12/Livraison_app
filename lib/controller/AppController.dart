@@ -1,131 +1,118 @@
-
-import 'dart:math';
-
+import 'dart:async';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:livraison_app/classes/plat.dart';
-import 'package:livraison_app/classes/promotion.dart';
-import 'package:url_launcher/url_launcher.dart';
-
-import '../classes/categorie.dart';
-import '../classes/commande.dart';
-import '../classes/promo.dart';
-import '../classes/restaurant.dart';
+import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:livraison_app/View/Food.dart';
+import 'package:livraison_app/View/OnBoarding_Pages.dart';
+import 'package:livraison_app/Widgets/customDialog.dart';
+import 'package:livraison_app/Widgets/customWithButtonDialog.dart';
 
 class AppController extends GetxController{
    late PageController controller ;
-   final Uri _number = Uri.parse('tel:+213556000010');
-   bool codeTrue=true;
-   bool submitLogin=false;
-   bool submitAdresse=false;
-   bool submitOTP=false;
-   bool submit1=false;
-   bool submit2=false;
-   bool submit3=false;
-   bool submit4=false;
-   bool submit5=false;
-   bool submit6=false;
-   final phoneNumber= new TextEditingController();
-   final Adresse= new TextEditingController();
-   final digitCode1=new TextEditingController();
-   final digitCode2=new TextEditingController();
-   final digitCode3=new TextEditingController();
-   final digitCode4=new TextEditingController();
-   final digitCode5=new TextEditingController();
-   final digitCode6=new TextEditingController();
-
-  static List<Color> ColorsPromo = [
-    Color(0xffE6424B),
-    Color(0xff3F3D56),
-    Color(0xfff9a825),
-    Color(0xffff6584),
-    Color(0xff8b4e56),
-    Color(0xff6b667c),
-    Color(0xffe1e0e1)
-  ];
-  static var ind=Random();
-
-  List<Restaurant> restaurants = [
-    new Restaurant(image:'assets/images/plat.png',name: 'Magic Pizza', categories:[Category([],'Pizza', 'assets/pizza.svg'),Category([],'Chiken', 'assets/pizza.svg'),Category([],'Burger', 'assets/pizza.svg')],
-        state: true,localisation: 'Akid Lotfi , ORAN'),
-    new Restaurant(image:'assets/images/plat.png',name: 'Magic Pizza', categories:[Category([],'Pizza','assets/pizza.svg' )],
-        state: true,localisation: 'Akid Lotfi , ORAN'),
-    new Restaurant(image:'assets/images/plat.png',name: 'Magic Pizza', categories:[Category([],'Pizza','assets/pizza.svg' )],
-        state: true,localisation: 'Akid Lotfi , ORAN'),
-  ];
-
-  List<Promotion> promotion = [
-    new Promotion(image: 'assets/images/promo1.png', nameRestaurant:'Pizza | Street 22',offre: 'Achetez 1,obtenez- 1 gratuitement', descriptionOffre: 'Pizza géante: poulet et viande hachée'),
-    new Promotion(image: 'assets/images/promo1.png', nameRestaurant:'Pizza | Street 22',offre: 'Achetez 1,obtenez- 1 gratuitement', descriptionOffre: 'Pizza géante: poulet et viande hachée'),
-    new Promotion(image: 'assets/images/promo1.png', nameRestaurant:'Pizza | Street 22',offre: 'Achetez 1,obtenez- 1 gratuitement', descriptionOffre: 'Pizza géante: poulet et viande hachée'),
-    new Promotion(image: 'assets/images/promo1.png', nameRestaurant:'Pizza | Street 22',offre: 'Achetez 1,obtenez- 1 gratuitement', descriptionOffre: 'Pizza géante: poulet et viande hachée'),
-  ];
-  final List<Promo> promo = [
-    new Promo('assets/images/promo1.png','Pizza | Street 22','Achetez 1,obtenez- 1 gratuitement','Pizza géante: poulet et viande hachée'),
-    new Promo('assets/images/promo1.png','Pizza | Street 22','Achetez 1,obtenez- 1 gratuitement','Pizza géante: poulet et viande hachée'),
-    new Promo('assets/images/promo1.png','Pizza | Street 22','Achetez 1,obtenez- 1 gratuitement','Pizza géante: poulet et viande hachée'),
-    new Promo('assets/images/promo1.png','Pizza | Street 22','Achetez 1,obtenez- 1 gratuitement','Pizza géante: poulet et viande hachée'),
-  ];
-
-  List<Category> Categ = [
-    Category([],'Pizza','assets/pizza.svg',),
-    Category([],'Soup','assets/soup.svg',),
-    Category([],'Sandwich','assets/sandwich.svg',),
-    Category([],'Drink','assets/drink.svg',),
-    Category([],'Burger','assets/sandwich.svg',),
-    Category([],'Burger','assets/sandwich.svg',),
-    Category([],'Burger','assets/sandwich.svg',),
-    Category([],'Burger','assets/sandwich.svg',),
-    Category([],'Burger','assets/sandwich.svg',),
-    Category([],'Burger','assets/sandwich.svg',),
-    Category([],'Burger','assets/sandwich.svg',),
-  ];
-
- /* List<Plat> p = [
-    new Plat(
-        'Pizza Poulet', 'Fromage, Poulet , Sauce rouge', 'Pizza', 400, 1),
-    new Plat('Cocacola', '1Lettre', 'Boisson', 100, 2),
-  ];
-  Commande c1 = new Commande('Magic pizza', '16 juin', 'En cours', p);
-  Commande c2 = new Commande('Magic pizza', '13 juin', 'Prête', p);
-  Commande c3 = new Commande('Magic pizza', '3 mars', 'En cours', p);
-  Commande c4 = new Commande('Magic pizza', '9 février', 'Prête', p);
-  List commandes = [c1, c2, c3, c4];*/
-
+   int page_index=0 ;
+   var connectionType = 0.obs;
+   final Connectivity _connectivity = Connectivity();
+   late StreamSubscription _streamSubscription;
+   final List<OnBoard> pages = [
+     OnBoard(image: 'lib/Asset/Images/onBoardingImage1.png', title: "Le temps est précieux , n'est-ce pas?",
+         description:
+         "Avec notre service rapide , vous n’aurez plus à vous soucier de l’heure de votre repas") ,
+     OnBoard(image: 'lib/Asset/Ivar onBoardingImage2.png', title: "Un seul clic et vous avez terminé",
+         description:
+         "Le reste est sur nous, nous vous apportons vos aliments préférés") ,
+     OnBoard(image: 'lib/Asset/Images/onBoardingImage3.png', title: "Nous somme là!",
+         description:
+         "Avec notre service rapide , vous n’aurez plus à vous soucier de l’heure de votre repas") ,
+   ] ;
   @override
   void onInit() {
     controller = PageController(initialPage: 0) ;
+
+    // getConnectivityType();
+    //_streamSubscription =
+      //  _connectivity.onConnectivityChanged.listen(_updateState);
     super.onInit();
   }
+   void onchange (int index ){
+     page_index =index ;
+     update () ;
+   }
+   void increment(var total , var counter , double prix , var cout_total) {
+     total.value < 30 ? (){ counter++ ; cout_total.value = (cout_total.value)+  prix ; total.value ++ ; }() : counter ;
+     update() ;
+   }
+   void decrement (var total ,var counter, double prix , var cout_total){
+     counter.value >1 ? (){ counter-- ; cout_total.value = (cout_total.value)-  prix ; total.value -- ; } (): counter ;
+     update();
+   }
+
+   void Delete ( Food food , var cout_total ){
+     Get.snackbar(
+         'Supprimer', 'Cet élément a été supprimé' ,
+         duration: Duration(seconds: 1) ,
+         snackPosition: SnackPosition.BOTTOM ,
+         backgroundColor: Color(0xffE4E4E4)
+     ) ;
+     cout_total.value = cout_total.value - food.prix * food.counter.value ;
+     print(food.counter) ;
+     update() ;
+
+   }
+   void Remove_from_cart(List cart   ,Food food ) {
+     print(food.ajouter) ;
+     int index = cart.indexOf(food)  != -1 ? cart.indexOf(food) : 0 ;
+     cart.removeAt(index) ;
+
+
+     update() ;
+   }
+
+   void Continuer(var ajouter  ,  Food food , List continuer) {
+
+     ajouter.value = ! ajouter.value    ;
+     int index = continuer.indexOf(food)  ;
+     if(ajouter.value ) {
+       continuer.add(food) ;
+     } else {
+       if (continuer.indexOf(food)  != -1)  continuer.removeAt(index);
+     }
+
+   }
+   void ListOfFood ( List continuer  ,var  somme ) {
+     for (var plat in continuer) {
+       somme.value = somme.value + plat.prix * plat.counter.value ;
+     }
+
+     update() ;
+   }
+
+  static void showDialogButton(String title,String ligne1,String ligne2,String asset)async{
+     Get.dialog(
+       barrierDismissible:false,
+       customWithButtonDialog(
+         title:title,
+         ligne1: ligne1,
+         ligne2: ligne2,
+         asset: asset,
+       ),
+     );
+   }
+
+   static void showDialogLogin(ligne1,ligne2)async{
+     Get.dialog(
+         barrierDismissible:false,
+         customDialog(
+           title:'S''il vous plaît, attendez',
+           ligne1: ligne1,
+           ligne2: ligne2,
+           asset: 'assets/json/sending.json',),
+
+     );}
+
   void onClose(){
     controller.dispose;
     super.onClose();
-  }
- void onSubmitLogin() {
-      submitLogin=phoneNumber.text.length==9;
-      update();
-  }
-  void onSubmitOTP() {
-    submit1=digitCode1.text.isNotEmpty;
-    submit2=digitCode2.text.isNotEmpty;
-    submit3=digitCode3.text.isNotEmpty;
-    submit4=digitCode4.text.isNotEmpty;
-    submit5=digitCode5.text.isNotEmpty;
-    submit6=digitCode6.text.isNotEmpty;
-    update();
-  }
-  void onSubmitAdresse() {
-    submitAdresse=Adresse.text.isNotEmpty;
-    update();
-  }
-  void onInDirectCall()async {
-    if (!await launchUrl(_number))
-      throw 'Could not launch $_number';
-    update();
-  }
-  void onAddPromoToCart(RxBool ajoute){
-    ajoute.value=!ajoute.value;
-    update();
   }
 
 }

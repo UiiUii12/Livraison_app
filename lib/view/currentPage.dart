@@ -3,12 +3,14 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
+import 'package:livraison_app/classes/Category.dart';
 import 'package:livraison_app/view/MesCommandes.dart';
 import 'package:livraison_app/view/PanierVide.dart';
-import 'package:livraison_app/view/SearchScreen.dart';
-
 import 'CartScreen.dart';
+import 'package:livraison_app/View/Food.dart';
 import 'HomeScreen.dart';
+import 'SearchScreen.dart';
 import 'Vide.dart';
 
 
@@ -20,7 +22,7 @@ class Main_Page extends StatefulWidget {
 }
 
 class _Main_PageState extends State<Main_Page> {
-  List interfaces = [ Home(), CartScreen() , PanierVide()  ,MesCommandes() ];
+  List interfaces = [ Home(),SearchScreen() ,  CartScreen(cart:<Food>[].obs, category:<Category>[].obs, inisial_price: 0,)  ,MesCommandes() ];
   @override
   Widget build(BuildContext context) {
     return SafeArea(child: Scaffold(

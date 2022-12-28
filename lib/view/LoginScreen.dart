@@ -1,21 +1,19 @@
 import 'dart:ui';
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:livraison_app/controller/AppController.dart';
-import 'package:lottie/lottie.dart';
-
-import '../Widgets/customDialog.dart';
+import 'package:livraison_app/view/OTPScreen.dart';
+import 'package:livraison_app/Controller/AppController.dart';
+import 'package:livraison_app/Controller/LoginScreenController.dart';
 
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
   Widget build(BuildContext context) {
-    AppController controller=Get.put(permanent: true , AppController()) ;
+    LoginScreenController controller=Get.put( LoginScreenController(),permanent: true ,) ;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
@@ -49,7 +47,7 @@ class LoginScreen extends StatelessWidget {
                   child: Align(
                     alignment: Alignment.topLeft,
                     child: AutoSizeText(
-                      'Ajoutez votre numéro de téléphone pour faciliter\nle contact avec notre service',
+                      'Ajoutez vos informations personnelles pour faciliter\nle contact avec notre service',
                       maxLines: 2,
                       style: TextStyle(
                         fontSize: 17,
@@ -59,6 +57,73 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ),
                 ),
+              ],
+            ),
+            Spacer(flex: 3,),
+            Row(
+              children: [
+                Spacer(flex: 1,),
+                Expanded(
+                  flex: 24,
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: AutoSizeText(
+                      'Nom',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontFamily: 'Golos',
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Spacer(flex: 1,),
+            Row(
+              children: [
+                Spacer(flex: 1,),
+                Expanded(
+                  flex: 24,
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Color(0xffF6F6F6),
+                        borderRadius: BorderRadius.circular(9)),
+                    height: 50,
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child:TextFormField(
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                            fontFamily: 'Golos',
+                            fontSize: 18),
+                        cursorColor: Colors.grey,
+                        enabled: true,
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsetsDirectional.only( start:11.w),
+                          hintText: 'Ajouter votre nom',
+                          hintStyle: TextStyle(
+                            fontFamily: 'Golos',
+                            fontSize: 18,
+                            color: Color(0xff9D9D9D),
+                          ),
+                          counterText: "",
+                          border: InputBorder.none,
+                          filled: true,
+                          fillColor: Colors.transparent,
+                          isCollapsed: true,
+                        ),
+                        keyboardType: TextInputType.name,
+                        textInputAction: TextInputAction.done,
+                        textAlignVertical: TextAlignVertical.center,
+                        controller: controller.nom,
+                        onChanged: (value){
+                          controller.onSubmitLogin();
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+                Spacer(flex: 1,),
               ],
             ),
             Spacer(flex: 3,),
@@ -105,7 +170,7 @@ class LoginScreen extends StatelessWidget {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               SizedBox(width: 11),
-                              SvgPicture.asset('assets/icons8-algérie-48.svg'),
+                              SvgPicture.asset('assets/images/icons8-algérie-48.svg'),
                               SizedBox(
                                 width: 6,
                               ),
@@ -132,7 +197,7 @@ class LoginScreen extends StatelessWidget {
                         controller:controller.phoneNumber,
                         onChanged: (phoneNumber){
                           controller.onSubmitLogin();
-                         if(GetUtils.isLengthEqualTo(phoneNumber, 9)){
+                         if(controller.submit1&&controller.submit2){
                             FocusScope.of(context).unfocus();
                         };}
                       ),
@@ -152,19 +217,12 @@ class LoginScreen extends StatelessWidget {
                     height: 50,
                     child:
                       GetBuilder(
-                        builder:(AppController controller)=> ElevatedButton(
-                          onPressed: GetUtils.isLengthEqualTo(controller.phoneNumber.text,9 ) ?(){
-                           /* showDialog(
-                              //barrierDismissible: false,
-                                context: context,
-                                builder: (BuildContext context){
-                                  return customDialog(
-                                    title: "S'il vous plaît, attendez",
-                                    ligne1:"vous recevrez un code pour vérifier" ,
-                                    ligne2: "votre identité",
-                                    asset:'assets/json/sending.json' ,
-                                  );});*/
-                           Navigator.pushNamed(context, '/otp');
+                        builder:(LoginScreenController controller)=> ElevatedButton(
+                          onPressed:controller.submit1&&controller.submit2 ?()async{
+                            AppController.showDialogLogin('vous recevrez un code pour vérifier','votre identité');
+                            await Future.delayed(Duration(milliseconds: 2000));
+                           if(controller.codeIsComing){ controller.createNewUser(controller.phoneNumber.text,controller.nom.text);
+                           Get.to( OTPScreen(phoneNumber: controller.phoneNumber),); }
                           }:null,
                           child: Text(
                             'Continue',
@@ -175,7 +233,7 @@ class LoginScreen extends StatelessWidget {
                             ),
                           ),
                           style: ElevatedButton.styleFrom(
-                              primary: Color(0xffE6424B),
+                              backgroundColor: Color(0xffE6424B),
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(9.0),
                                  )),

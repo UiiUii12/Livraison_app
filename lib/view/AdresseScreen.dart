@@ -3,22 +3,24 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:livraison_app/controller/AppController.dart';
-
+import 'package:livraison_app/Controller/AdresseScreenController.dart';
 import 'currentPage.dart';
 
 
 
 class AdresseScreen extends StatelessWidget {
+
   AdresseScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    AppController controller = Get.put(permanent: true, AppController());
+    AdresseScreenController controller = Get.put( AdresseScreenController(),permanent: true,);
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
         color: Colors.white,
+
         child: Column(
           children: [
             Spacer(flex: 10,),
@@ -93,6 +95,9 @@ class AdresseScreen extends StatelessWidget {
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: TextFormField(
+                        /*onTap: ()async{
+                          controller.handlePressButton(context);
+                        },*/
                         style: TextStyle(
                             fontFamily: 'Golos',
                             fontSize: 18),
@@ -138,9 +143,11 @@ class AdresseScreen extends StatelessWidget {
                   child: Container(
                     height: 50,
                     child: GetBuilder(
-                      builder:(AppController controller)=> ElevatedButton(
-                        onPressed: controller.submitAdresse?() {
-                          Navigator.push(
+                      builder:(AdresseScreenController controller)=> ElevatedButton(
+                        onPressed: controller.submitAdresse?()async {
+                          print(controller.Adresse.text);
+                         controller.addAdresseUser(controller.Adresse.text);
+                         Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => Main_Page()));
@@ -154,7 +161,7 @@ class AdresseScreen extends StatelessWidget {
                           ),
                         ),
                         style: ElevatedButton.styleFrom(
-                            primary: Color(0xffE6424B),
+                            backgroundColor: Color(0xffE6424B),
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(9.0),
                                )),
