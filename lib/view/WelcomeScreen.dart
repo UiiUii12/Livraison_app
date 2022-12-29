@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
 class WelcomeScreen extends StatelessWidget {
@@ -14,73 +15,67 @@ class WelcomeScreen extends StatelessWidget {
         color: Colors.white,
         child: Column(
           children: [
-            Expanded(flex: 308, child: Container(),),
-                  Row(
-                    children: [
-                      Spacer(flex: 5,),
-                      AutoSizeText.rich(
-                        TextSpan(
-                            children:[
-                              TextSpan(text: 'Vous êtes les bienvenus'),
-                              TextSpan(text: '\ndans notre application'),
-                            ]
-                        ),
-                        style: TextStyle(
-                            fontSize: 28,
-                            fontFamily: 'Golos'
-                        ),
-                      ),
-                      Spacer(flex: 5,),
-                    ],
-                  ),
+            Spacer(flex: 308,),
+            Align(
+              alignment: Alignment.center,
+              child: AutoSizeText(
+                          'Vous êtes les bienvenus',
+                  style: TextStyle(
+                  fontSize: 28.sp,
+                  fontFamily: 'Golos'
+                ),
+              ),
+            ),
+            Align(
+              alignment: Alignment.center,
+              child: AutoSizeText(
+                'dans notre application',
+                style: TextStyle(
+                    fontSize: 28.sp,
+                    fontFamily: 'Golos'
+                ),
+              ),
+              // 'dans notre application'
+            ),
             Spacer(flex: 10,),
-            Row(
-              children: [
-                Spacer(flex: 1,),
-                Align(
+            Align(
                   alignment: Alignment.center,
                   child: AutoSizeText(
                     'Nous apprécions chacun de nos clients et\nespérons que vous apprécierez avec nous',
                     maxLines: 2,
                     style: TextStyle(
-                      fontSize: 17,
+                      fontSize: 17.sp,
                       color: Color(0xff807F7F),
                       fontFamily: 'Golos',
                     ),
                   ),
                 ),
-                Spacer(flex: 1,),
-              ],
-            ),
             Spacer(flex: 40,),
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Spacer(flex: 1,),
-                Expanded(
-                  flex: 24,
-                  child: Container(
-                    height: 50,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/adresse');
-                      },
-                      child: Text(
-                        'Continue',
-                        style: TextStyle(
-                          fontFamily: 'Golos',
-                          fontSize: 22,
-                          color: Colors.white,
-                        ),
+                Container(
+                  width: 401.w,
+                  height: 56.h,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/adresse');
+                    },
+                    child: Text(
+                      'Continue',
+                      style: TextStyle(
+                        fontFamily: 'Golos',
+                        fontSize: 22.sp,
+                        color: Colors.white,
                       ),
-                      style: ElevatedButton.styleFrom(
-                          primary: Color(0xffE6424B),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(9.0),
-                              side: BorderSide(color: Colors.red))),
                     ),
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Color(0xffE6424B),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(9.0),
+                            side: BorderSide(color: Colors.red))),
                   ),
                 ),
-                Spacer(flex: 1,),
               ],
             ),
             Spacer(flex: 407,),

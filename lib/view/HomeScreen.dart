@@ -9,9 +9,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:livraison_app/Controller/LoginScreenController.dart';
 import 'package:livraison_app/Controller/RestaurantController.dart';
-import 'package:livraison_app/View/LoginScreen.dart';
 import 'package:livraison_app/View/RestaurantsScreen.dart';
-import 'package:livraison_app/View/SearchScreen.dart';
 import 'package:livraison_app/classes/promotion.dart';
 import 'package:livraison_app/Controller/HomeScreenController.dart';
 

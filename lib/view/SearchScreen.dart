@@ -8,7 +8,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/state_manager.dart';
 import 'package:livraison_app/Controller/SearchController.dart';
-
 import '../Controller/LoginScreenController.dart';
 
 class SearchScreen extends StatelessWidget {

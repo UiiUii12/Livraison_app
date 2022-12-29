@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -20,57 +21,49 @@ class LoginScreen extends StatelessWidget {
         color: Colors.white,
         child: Column(
           children: [
-            Spacer(flex: 10,),
+            Spacer(flex: 101,),
             Row(
               children: [
-                Spacer(flex: 1,),
+                SizedBox(width: 14.w,),
                 Expanded(
-                  flex: 24,
-                  child: Align(
-                    alignment: Alignment.topLeft,
-                    child: AutoSizeText(
-                      'Bienvenue dans notre\nlivraison de nourriture',
-                      maxLines: 2,
-                      style: TextStyle(fontSize: 28, fontFamily: 'Golos'
-                          ),
-                    ),
+                  child: AutoSizeText(
+                    'Bienvenue dans notre\nlivraison de nourriture',
+                    maxLines: 2,
+                    textAlign: TextAlign.left,
+                    style: TextStyle(fontSize: 28.sp, fontFamily: 'Golos'
+                        ),
                   ),
                 )
               ],
             ),
-            Spacer(flex: 1,),
+            Spacer(flex: 10,),
             Row(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Spacer(flex: 1,),
-                Expanded(
-                  flex: 24,
-                  child: Align(
-                    alignment: Alignment.topLeft,
-                    child: AutoSizeText(
-                      'Ajoutez vos informations personnelles pour faciliter\nle contact avec notre service',
-                      maxLines: 2,
-                      style: TextStyle(
-                        fontSize: 17,
-                        color: Color(0xff807F7F),
-                        fontFamily: 'Golos',
-                      ),
-                    ),
+                SizedBox(width: 14.w,),
+                Expanded(child: AutoSizeText(
+                  'Ajoutez vos informations personnelles pour faciliter\nle contact avec notre service',
+                  maxLines: 2,
+                  style: TextStyle(
+                    fontSize: 17.sp,
+                    color: Color(0xff807F7F),
+                    fontFamily: 'Golos',
                   ),
-                ),
+                ),),
+                SizedBox(width: 14.w,)
               ],
             ),
-            Spacer(flex: 3,),
+            Spacer(flex: 32,),
             Row(
               children: [
-                Spacer(flex: 1,),
+                SizedBox(width: 14.w,),
                 Expanded(
-                  flex: 24,
                   child: Align(
                     alignment: Alignment.topLeft,
                     child: AutoSizeText(
                       'Nom',
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 18.sp,
                         fontFamily: 'Golos',
                       ),
                     ),
@@ -78,66 +71,62 @@ class LoginScreen extends StatelessWidget {
                 ),
               ],
             ),
-            Spacer(flex: 1,),
+            Spacer(flex: 10,),
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Spacer(flex: 1,),
-                Expanded(
-                  flex: 24,
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Color(0xffF6F6F6),
-                        borderRadius: BorderRadius.circular(9)),
-                    height: 50,
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child:TextFormField(
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                            fontFamily: 'Golos',
-                            fontSize: 18),
-                        cursorColor: Colors.grey,
-                        enabled: true,
-                        decoration: InputDecoration(
-                          contentPadding: EdgeInsetsDirectional.only( start:11.w),
-                          hintText: 'Ajouter votre nom',
-                          hintStyle: TextStyle(
-                            fontFamily: 'Golos',
-                            fontSize: 18,
-                            color: Color(0xff9D9D9D),
-                          ),
-                          counterText: "",
-                          border: InputBorder.none,
-                          filled: true,
-                          fillColor: Colors.transparent,
-                          isCollapsed: true,
+                Container(
+                  decoration: BoxDecoration(
+                      color: Color(0xffF6F6F6),
+                      borderRadius: BorderRadius.circular(9)),
+                  height: 56.h,
+                  width: 401.w,
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child:TextFormField(
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                          fontFamily: 'Golos',
+                          fontSize: 18.sp),
+                      cursorColor: Colors.grey,
+                      enabled: true,
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsetsDirectional.only( start:11.w),
+                        hintText: 'Ajouter votre nom',
+                        hintStyle: TextStyle(
+                          fontFamily: 'Golos',
+                          fontSize: 18.sp,
+                          color: Color(0xff9D9D9D),
                         ),
-                        keyboardType: TextInputType.name,
-                        textInputAction: TextInputAction.done,
-                        textAlignVertical: TextAlignVertical.center,
-                        controller: controller.nom,
-                        onChanged: (value){
-                          controller.onSubmitLogin();
-                        },
+                        counterText: "",
+                        border: InputBorder.none,
+                        filled: true,
+                        fillColor: Colors.transparent,
+                        isCollapsed: true,
                       ),
+                      keyboardType: TextInputType.name,
+                      textInputAction: TextInputAction.done,
+                      textAlignVertical: TextAlignVertical.center,
+                      controller: controller.nom,
+                      onChanged: (value){
+                        controller.onSubmitLogin();
+                      },
                     ),
                   ),
                 ),
-                Spacer(flex: 1,),
               ],
             ),
-            Spacer(flex: 3,),
+            Spacer(flex: 32,),
             Row(
               children: [
-                Spacer(flex: 1,),
+                SizedBox(width: 14.w,),
                 Expanded(
-                  flex: 24,
                   child: Align(
                     alignment: Alignment.topLeft,
                     child: AutoSizeText(
                       'Numéro de téléphone',
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 18.sp,
                         fontFamily: 'Golos',
                       ),
                     ),
@@ -145,131 +134,127 @@ class LoginScreen extends StatelessWidget {
                 ),
               ],
             ),
-            Spacer(flex: 1,),
-            Row(
-              children: [
-                Spacer(flex: 1,),
-                Expanded(
-                  flex: 24,
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Color(0xffF6F6F6),
-                        borderRadius: BorderRadius.circular(9)),
-                    height: 50,
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: TextFormField(
-                        style: TextStyle(
-                            height: 1.5,
-                            fontFamily: 'Golos',
-                            fontSize: 18),
-                        cursorColor: Colors.grey,
-                        enabled: true,
-                        decoration: InputDecoration(
-                          prefixIcon: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              SizedBox(width: 11),
-                              SvgPicture.asset('assets/images/icons8-algérie-48.svg'),
-                              SizedBox(
-                                width: 6,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 3.5),
-                                child: Text(
-                                  "+213",
-                                  style: TextStyle(
-                                      fontSize: 18, fontFamily: 'Golos'),
-                                ),
-                              )
-                            ],
-                          ),
-                          counterText: "",
-                          border: InputBorder.none,
-                          filled: true,
-                          fillColor: Colors.transparent,
-                          isCollapsed: true,
-                        ),
-                        keyboardType: TextInputType.phone,
-                        textInputAction: TextInputAction.done,
-                        maxLength: 9,
-                        textAlignVertical: TextAlignVertical.center,
-                        controller:controller.phoneNumber,
-                        onChanged: (phoneNumber){
-                          controller.onSubmitLogin();
-                         if(controller.submit1&&controller.submit2){
-                            FocusScope.of(context).unfocus();
-                        };}
-                      ),
-                    ),
-                  ),
-                ),
-                Spacer(flex: 1,),
-              ],
-            ),
-            Spacer(flex: 4,),
-            Row(
-              children: [
-                Spacer(flex: 1,),
-                Expanded(
-                  flex: 24,
-                  child: Container(
-                    height: 50,
-                    child:
-                      GetBuilder(
-                        builder:(LoginScreenController controller)=> ElevatedButton(
-                          onPressed:controller.submit1&&controller.submit2 ?()async{
-                            AppController.showDialogLogin('vous recevrez un code pour vérifier','votre identité');
-                            await Future.delayed(Duration(milliseconds: 2000));
-                           if(controller.codeIsComing){ controller.createNewUser(controller.phoneNumber.text,controller.nom.text);
-                           Get.to( OTPScreen(phoneNumber: controller.phoneNumber),); }
-                          }:null,
-                          child: Text(
-                            'Continue',
-                            style: TextStyle(
-                              fontFamily: 'Golos',
-                              fontSize: 22,
-                              color: Colors.white,
-                            ),
-                          ),
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: Color(0xffE6424B),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(9.0),
-                                 )),
-                        ),
-                      ),
-                    ),
-                  ),
-                Spacer(flex: 1,),
-              ],
-            ),
-            Spacer(flex: 4,),
+            Spacer(flex: 10,),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                AutoSizeText(
-                  'Vous avez un problème  ?',
-                  style: TextStyle(
-                    fontSize: 17,
-                    fontFamily: 'Golos',
+                Container(
+                  decoration: BoxDecoration(
+                      color: Color(0xffF6F6F6),
+                      borderRadius: BorderRadius.circular(9)),
+                  width: 401.w,
+                  height: 56.h,
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: TextFormField(
+                      textAlignVertical: TextAlignVertical.center,
+                      style: TextStyle(
+                          //height: 1.5,
+                          fontFamily: 'Golos',
+                          fontSize: 18.sp),
+                      cursorColor: Colors.grey,
+                      enabled: true,
+                      decoration: InputDecoration(
+                        prefixIcon: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            SizedBox(width: 11.w),
+                            SvgPicture.asset('assets/images/icons8-algérie-48.svg'),
+                            SizedBox(
+                              width: 6.w,
+                            ),
+                            Align(
+                              alignment: Alignment.center,
+                              child: Text(
+                                "+213",
+                                style: TextStyle(
+                                    fontSize: 18.sp, fontFamily: 'Golos'),
+                              ),
+                            )
+                          ],
+                        ),
+                        counterText: "",
+                        border: InputBorder.none,
+                        filled: true,
+                        fillColor: Colors.transparent,
+                        isCollapsed: true,
+                      ),
+                      keyboardType: TextInputType.phone,
+                      textInputAction: TextInputAction.done,
+                      maxLength: 9,
+                      //textAlignVertical: TextAlignVertical.center,
+                      controller:controller.phoneNumber,
+                      onChanged: (phoneNumber){
+                        controller.onSubmitLogin();
+                       if(controller.submit1&&controller.submit2){
+                          FocusScope.of(context).unfocus();
+                      };}
+                    ),
                   ),
                 ),
-                TextButton(
-                    onPressed: () {
-                      controller.onInDirectCall();
-                    },
-                    child: AutoSizeText(
-                      'Contactez-nous',
-                      style: TextStyle(
-                        color: Color(0xffE6424B),
-                        fontSize: 17,
-                        fontFamily: 'Golos',
-                      ),
-                    ))
+               // SizedBox(width: 14.w,),
               ],
             ),
-            Spacer(flex: 50,),
+            Spacer(flex: 36,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: 401.w,
+                  height: 56.h,
+                  child:
+                    GetBuilder(
+                      builder:(LoginScreenController controller)=> ElevatedButton(
+                        onPressed:controller.submit1&&controller.submit2 ?()async{
+                          AppController.showDialogLogin('vous recevrez un code pour vérifier','votre identité');
+                          await Future.delayed(Duration(milliseconds: 2000));
+                         if(controller.codeIsComing){ controller.createNewUser(controller.phoneNumber.text,controller.nom.text);
+                         Get.to( OTPScreen(phoneNumber: controller.phoneNumber),); }
+                        }:null,
+                        child: Text(
+                          'Continue',
+                          style: TextStyle(
+                            fontFamily: 'Golos',
+                            fontSize: 22.sp,
+                            color: Colors.white,
+                          ),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Color(0xffE6424B),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(9.0),
+                               )),
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+            Spacer(flex: 36,),
+            Align(
+              alignment: Alignment.center,
+              child: RichText(
+                maxLines: 1,
+                text: TextSpan(children: [
+                  TextSpan(
+                      text:'Vous avez un problème ?',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18.sp,
+                        fontFamily: 'Golos',
+                      )),
+                  TextSpan(
+                    recognizer:  TapGestureRecognizer()
+                      ..onTap = () => controller.onInDirectCall(),
+                      text:' Contactez-nous',
+                      style: TextStyle(
+                        color: Color(0xffE6424B),
+                        fontSize: 18.sp,
+                        fontFamily: 'Golos',
+                      ))
+                ]),
+              ),
+            ),
+            Spacer(flex: 350,),
           ],
         ),
       ),
